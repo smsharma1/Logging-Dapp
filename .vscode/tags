@@ -53,7 +53,7 @@ AT_UNI_BOUNDARY	../lib/python2.7/sre_constants.py	/^AT_UNI_BOUNDARY = "at_uni_bo
 AT_UNI_BOUNDARY	../local/lib/python2.7/sre_constants.py	/^AT_UNI_BOUNDARY = "at_uni_boundary"$/;"	kind:variable	line:79
 AT_UNI_NON_BOUNDARY	../lib/python2.7/sre_constants.py	/^AT_UNI_NON_BOUNDARY = "at_uni_non_boundary"$/;"	kind:variable	line:80
 AT_UNI_NON_BOUNDARY	../local/lib/python2.7/sre_constants.py	/^AT_UNI_NON_BOUNDARY = "at_uni_non_boundary"$/;"	kind:variable	line:80
-AUTH_PASSWORD_VALIDATORS	../loggingdapp/settings.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:87
+AUTH_PASSWORD_VALIDATORS	../loggingdapp/settings.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:92
 AppConfig	../logdapp/apps.py	/^from django.apps import AppConfig$/;"	kind:namespace	line:4
 BASE_DIR	../loggingdapp/settings.py	/^BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))$/;"	kind:variable	line:16
 BIGCHARSET	../lib/python2.7/sre_constants.py	/^BIGCHARSET = "bigcharset"$/;"	kind:variable	line:40
@@ -378,7 +378,7 @@ ComplexType	../lib/python2.7/types.py	/^    ComplexType = complex$/;"	kind:varia
 ComplexType	../local/lib/python2.7/types.py	/^    ComplexType = complex$/;"	kind:variable	line:21
 Container	../lib/python2.7/_abcoll.py	/^class Container:$/;"	kind:class	line:106
 Container	../local/lib/python2.7/_abcoll.py	/^class Container:$/;"	kind:class	line:106
-DATABASES	../loggingdapp/settings.py	/^DATABASES = {$/;"	kind:variable	line:76
+DATABASES	../loggingdapp/settings.py	/^DATABASES = {$/;"	kind:variable	line:77
 DEBUG	../lib/python2.7/re.py	/^DEBUG = sre_compile.SRE_FLAG_DEBUG # dump pattern after compilation$/;"	kind:variable	line:130
 DEBUG	../local/lib/python2.7/re.py	/^DEBUG = sre_compile.SRE_FLAG_DEBUG # dump pattern after compilation$/;"	kind:variable	line:130
 DEBUG	../loggingdapp/settings.py	/^DEBUG = True$/;"	kind:variable	line:26
@@ -424,6 +424,7 @@ HEXDIGITS	../lib/python2.7/sre_parse.py	/^HEXDIGITS = set("0123456789abcdefABCDE
 HEXDIGITS	../local/lib/python2.7/sre_parse.py	/^HEXDIGITS = set("0123456789abcdefABCDEF")$/;"	kind:variable	line:25
 Hashable	../lib/python2.7/_abcoll.py	/^class Hashable:$/;"	kind:class	line:32
 Hashable	../local/lib/python2.7/_abcoll.py	/^class Hashable:$/;"	kind:class	line:32
+HttpResponse	../logdapp/views.py	/^from django.http import HttpResponse$/;"	kind:namespace	line:8
 IN	../lib/python2.7/sre_constants.py	/^IN = "in"$/;"	kind:variable	line:48
 IN	../local/lib/python2.7/sre_constants.py	/^IN = "in"$/;"	kind:variable	line:48
 INFO	../lib/python2.7/sre_constants.py	/^INFO = "info"$/;"	kind:variable	line:50
@@ -923,7 +924,7 @@ JUMP	../lib/python2.7/sre_constants.py	/^JUMP = "jump"$/;"	kind:variable	line:51
 JUMP	../local/lib/python2.7/sre_constants.py	/^JUMP = "jump"$/;"	kind:variable	line:51
 KeysView	../lib/python2.7/_abcoll.py	/^class KeysView(MappingView, Set):$/;"	kind:class	line:443
 KeysView	../local/lib/python2.7/_abcoll.py	/^class KeysView(MappingView, Set):$/;"	kind:class	line:443
-LANGUAGE_CODE	../loggingdapp/settings.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:106
+LANGUAGE_CODE	../loggingdapp/settings.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:111
 LC_ALL	../lib/python2.7/locale.py	/^    LC_ALL = 6$/;"	kind:variable	line:52
 LC_ALL	../local/lib/python2.7/locale.py	/^    LC_ALL = 6$/;"	kind:variable	line:52
 LC_COLLATE	../lib/python2.7/locale.py	/^    LC_COLLATE = 3$/;"	kind:variable	line:53
@@ -965,7 +966,7 @@ MAX_REPEAT	../lib/python2.7/sre_constants.py	/^MAX_REPEAT = "max_repeat"$/;"	kin
 MAX_REPEAT	../local/lib/python2.7/sre_constants.py	/^MAX_REPEAT = "max_repeat"$/;"	kind:variable	line:55
 MAX_UNTIL	../lib/python2.7/sre_constants.py	/^MAX_UNTIL = "max_until"$/;"	kind:variable	line:56
 MAX_UNTIL	../local/lib/python2.7/sre_constants.py	/^MAX_UNTIL = "max_until"$/;"	kind:variable	line:56
-MIDDLEWARE	../loggingdapp/settings.py	/^MIDDLEWARE = [$/;"	kind:variable	line:42
+MIDDLEWARE	../loggingdapp/settings.py	/^MIDDLEWARE = [$/;"	kind:variable	line:43
 MIN_REPEAT	../lib/python2.7/sre_constants.py	/^MIN_REPEAT = "min_repeat"$/;"	kind:variable	line:57
 MIN_REPEAT	../local/lib/python2.7/sre_constants.py	/^MIN_REPEAT = "min_repeat"$/;"	kind:variable	line:57
 MIN_REPEAT_ONE	../lib/python2.7/sre_constants.py	/^MIN_REPEAT_ONE = "min_repeat_one"$/;"	kind:variable	line:66
@@ -1024,7 +1025,7 @@ REPEAT_CHARS	../lib/python2.7/sre_parse.py	/^REPEAT_CHARS = "*+?{"$/;"	kind:vari
 REPEAT_CHARS	../local/lib/python2.7/sre_parse.py	/^REPEAT_CHARS = "*+?{"$/;"	kind:variable	line:20
 REPEAT_ONE	../lib/python2.7/sre_constants.py	/^REPEAT_ONE = "repeat_one"$/;"	kind:variable	line:64
 REPEAT_ONE	../local/lib/python2.7/sre_constants.py	/^REPEAT_ONE = "repeat_one"$/;"	kind:variable	line:64
-ROOT_URLCONF	../loggingdapp/settings.py	/^ROOT_URLCONF = 'loggingdapp.urls'$/;"	kind:variable	line:52
+ROOT_URLCONF	../loggingdapp/settings.py	/^ROOT_URLCONF = 'loggingdapp.urls'$/;"	kind:variable	line:53
 SEEK_CUR	../lib/python2.7/os.py	/^SEEK_CUR = 1$/;"	kind:variable	line:128
 SEEK_CUR	../local/lib/python2.7/os.py	/^SEEK_CUR = 1$/;"	kind:variable	line:128
 SEEK_END	../lib/python2.7/os.py	/^SEEK_END = 2$/;"	kind:variable	line:129
@@ -1065,7 +1066,7 @@ SRE_INFO_LITERAL	../lib/python2.7/sre_constants.py	/^SRE_INFO_LITERAL = 2 # enti
 SRE_INFO_LITERAL	../local/lib/python2.7/sre_constants.py	/^SRE_INFO_LITERAL = 2 # entire pattern is literal (given by prefix)$/;"	kind:variable	line:218
 SRE_INFO_PREFIX	../lib/python2.7/sre_constants.py	/^SRE_INFO_PREFIX = 1 # has prefix$/;"	kind:variable	line:217
 SRE_INFO_PREFIX	../local/lib/python2.7/sre_constants.py	/^SRE_INFO_PREFIX = 1 # has prefix$/;"	kind:variable	line:217
-STATIC_URL	../loggingdapp/settings.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:120
+STATIC_URL	../loggingdapp/settings.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:125
 STRING_TYPES	../lib/python2.7/sre_compile.py	/^    STRING_TYPES = (type(""), type(unicode("")))$/;"	kind:variable	line:544
 STRING_TYPES	../lib/python2.7/sre_compile.py	/^    STRING_TYPES = (type(""),)$/;"	kind:variable	line:542
 STRING_TYPES	../local/lib/python2.7/sre_compile.py	/^    STRING_TYPES = (type(""), type(unicode("")))$/;"	kind:variable	line:544
@@ -1678,8 +1679,8 @@ SubPattern	../lib/python2.7/sre_parse.py	/^class SubPattern:$/;"	kind:class	line
 SubPattern	../local/lib/python2.7/sre_parse.py	/^class SubPattern:$/;"	kind:class	line:90
 T	../lib/python2.7/encodings/punycode.py	/^def T(j, bias):$/;"	kind:function	line:72
 T	../local/lib/python2.7/encodings/punycode.py	/^def T(j, bias):$/;"	kind:function	line:72
-TEMPLATES	../loggingdapp/settings.py	/^TEMPLATES = [$/;"	kind:variable	line:54
-TIME_ZONE	../loggingdapp/settings.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:108
+TEMPLATES	../loggingdapp/settings.py	/^TEMPLATES = [$/;"	kind:variable	line:55
+TIME_ZONE	../loggingdapp/settings.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:113
 TestCase	../logdapp/tests.py	/^from django.test import TestCase$/;"	kind:namespace	line:4
 ToASCII	../lib/python2.7/encodings/idna.py	/^def ToASCII(label):$/;"	kind:function	line:62
 ToASCII	../local/lib/python2.7/encodings/idna.py	/^def ToASCII(label):$/;"	kind:function	line:62
@@ -1711,9 +1712,9 @@ USER_BASE	../lib/python2.7/site.py	/^USER_BASE = None$/;"	kind:variable	line:84
 USER_BASE	../local/lib/python2.7/site.py	/^USER_BASE = None$/;"	kind:variable	line:84
 USER_SITE	../lib/python2.7/site.py	/^USER_SITE = None$/;"	kind:variable	line:83
 USER_SITE	../local/lib/python2.7/site.py	/^USER_SITE = None$/;"	kind:variable	line:83
-USE_I18N	../loggingdapp/settings.py	/^USE_I18N = True$/;"	kind:variable	line:110
-USE_L10N	../loggingdapp/settings.py	/^USE_L10N = True$/;"	kind:variable	line:112
-USE_TZ	../loggingdapp/settings.py	/^USE_TZ = True$/;"	kind:variable	line:114
+USE_I18N	../loggingdapp/settings.py	/^USE_I18N = True$/;"	kind:variable	line:115
+USE_L10N	../loggingdapp/settings.py	/^USE_L10N = True$/;"	kind:variable	line:117
+USE_TZ	../loggingdapp/settings.py	/^USE_TZ = True$/;"	kind:variable	line:119
 UnboundMethodType	../lib/python2.7/types.py	/^UnboundMethodType = type(_C._m)         # Same as MethodType$/;"	kind:variable	line:54
 UnboundMethodType	../local/lib/python2.7/types.py	/^UnboundMethodType = type(_C._m)         # Same as MethodType$/;"	kind:variable	line:54
 UnicodeType	../lib/python2.7/types.py	/^    UnicodeType = unicode$/;"	kind:variable	line:31
@@ -1728,7 +1729,7 @@ ValuesView	../lib/python2.7/_abcoll.py	/^class ValuesView(MappingView):$/;"	kind
 ValuesView	../local/lib/python2.7/_abcoll.py	/^class ValuesView(MappingView):$/;"	kind:class	line:479
 WHITESPACE	../lib/python2.7/sre_parse.py	/^WHITESPACE = set(" \\t\\n\\r\\v\\f")$/;"	kind:variable	line:27
 WHITESPACE	../local/lib/python2.7/sre_parse.py	/^WHITESPACE = set(" \\t\\n\\r\\v\\f")$/;"	kind:variable	line:27
-WSGI_APPLICATION	../loggingdapp/settings.py	/^WSGI_APPLICATION = 'loggingdapp.wsgi.application'$/;"	kind:variable	line:70
+WSGI_APPLICATION	../loggingdapp/settings.py	/^WSGI_APPLICATION = 'loggingdapp.wsgi.application'$/;"	kind:variable	line:71
 WarningMessage	../lib/python2.7/warnings.py	/^class WarningMessage(object):$/;"	kind:class	line:303
 WarningMessage	../local/lib/python2.7/warnings.py	/^class WarningMessage(object):$/;"	kind:class	line:303
 WeakSet	../lib/python2.7/_weakrefset.py	/^class WeakSet(object):$/;"	kind:class	line:35
@@ -4980,8 +4981,10 @@ ignore_errors	../local/lib/python2.7/codecs.py	/^    ignore_errors = None$/;"	ki
 ignore_errors	../local/lib/python2.7/codecs.py	/^    ignore_errors = lookup_error("ignore")$/;"	kind:variable	line:1087
 imp	../lib/python2.7/distutils/__init__.py	/^import imp$/;"	kind:namespace	line:4
 imp	../local/lib/python2.7/distutils/__init__.py	/^import imp$/;"	kind:namespace	line:4
+include	../loggingdapp/urls.py	/^from django.conf.urls import include, url$/;"	kind:namespace	line:16
 index	../lib/python2.7/_abcoll.py	/^    def index(self, value):$/;"	kind:member	line:621
 index	../local/lib/python2.7/_abcoll.py	/^    def index(self, value):$/;"	kind:member	line:621
+index	../logdapp/views.py	/^def index(request):$/;"	kind:function	line:11
 insert	../lib/python2.7/_abcoll.py	/^    def insert(self, index, value):$/;"	kind:member	line:658
 insert	../lib/python2.7/sre_parse.py	/^    def insert(self, index, code):$/;"	kind:member	line:147
 insert	../local/lib/python2.7/_abcoll.py	/^    def insert(self, index, value):$/;"	kind:member	line:658
@@ -5938,8 +5941,11 @@ update	../local/lib/python2.7/os.py	/^            def update(self,  dict=None, *
 update	../local/lib/python2.7/os.py	/^            def update(self, dict=None, **kwargs):$/;"	kind:member	line:448
 updatecache	../lib/python2.7/linecache.py	/^def updatecache(filename, module_globals=None):$/;"	kind:function	line:72
 updatecache	../local/lib/python2.7/linecache.py	/^def updatecache(filename, module_globals=None):$/;"	kind:function	line:72
-url	../loggingdapp/urls.py	/^from django.conf.urls import url$/;"	kind:namespace	line:16
+url	../logdapp/urls.py	/^from django.conf.urls import url$/;"	kind:namespace	line:1
+url	../loggingdapp/urls.py	/^from django.conf.urls import include, url$/;"	kind:namespace	line:16
+urlpatterns	../logdapp/urls.py	/^urlpatterns = [$/;"	kind:variable	line:5
 urlpatterns	../loggingdapp/urls.py	/^urlpatterns = [$/;"	kind:variable	line:19
+urls.py	../logdapp/urls.py	1;"	kind:file	line:1
 urls.py	../loggingdapp/urls.py	1;"	kind:file	line:1
 use	../lib/python2.7/distutils/__init__.py	/^import opcode # opcode is not a virtualenv module, so we can use it to find the stdlib$/;"	kind:namespace	line:5
 use	../local/lib/python2.7/distutils/__init__.py	/^import opcode # opcode is not a virtualenv module, so we can use it to find the stdlib$/;"	kind:namespace	line:5
@@ -5977,6 +5983,7 @@ values	../lib/python2.7/_abcoll.py	/^    def values(self):$/;"	kind:member	line:
 values	../local/lib/python2.7/UserDict.py	/^    def values(self): return self.data.values()$/;"	kind:member	line:61
 values	../local/lib/python2.7/UserDict.py	/^    def values(self):$/;"	kind:member	line:152
 values	../local/lib/python2.7/_abcoll.py	/^    def values(self):$/;"	kind:member	line:416
+views	../logdapp/urls.py	/^from . import views$/;"	kind:namespace	line:3
 views.py	../logdapp/views.py	1;"	kind:file	line:1
 virtual_addsitepackages	../lib/python2.7/site.py	/^def virtual_addsitepackages(known_paths):$/;"	kind:function	line:642
 virtual_addsitepackages	../local/lib/python2.7/site.py	/^def virtual_addsitepackages(known_paths):$/;"	kind:function	line:642
