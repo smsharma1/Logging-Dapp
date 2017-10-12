@@ -12,3 +12,15 @@ class Prof(models.Model):
     office = models.CharField(max_length=200)
     email = models.EmailField()
     course = models.CharField(max_length=200)
+class Students(models.Model):
+    Name = models.CharField(max_length = 200)
+    Roll_Number = models.AutoField(primary_key=True)
+    Semester = models.IntegerField()
+    Degree = models.CharField(max_length = 20)
+    Department = models.CharField(max_length = 25)
+    Email = models.EmailField()
+
+class Courses(models.Model):
+    ID = models.CharField(max_length=10,primary_key=True)
+    Name = models.CharField(max_length=20)
+
