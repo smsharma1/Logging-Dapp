@@ -78,10 +78,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'loggingdapp',
-        'USER': 'root',
+        'USER': 'grahul',
         'PASSWORD': 'shubham',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': '192.168.0.104',
+        'PORT': '3306',
     }
 }
 
