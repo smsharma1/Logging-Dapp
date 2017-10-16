@@ -80,8 +80,8 @@ DATABASES = {
         'NAME': 'loggingdapp',
         'USER': 'root',
         'PASSWORD': 'shubham',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': '192.168.0.104',
+        'PORT': '3306',
     }
 }
 
