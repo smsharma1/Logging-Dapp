@@ -4,6 +4,10 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+0001_initial.py	../logdapp/migrations/0001_initial.py	1;"	kind:file	line:1
+0001_initial.py	../logdapp/migrations/backup/0001_initial.py	1;"	kind:file	line:1
+0002_auto_20171012_1210.py	../logdapp/migrations/backup/0002_auto_20171012_1210.py	1;"	kind:file	line:1
+0003_auto_20171012_1220.py	../logdapp/migrations/backup/0003_auto_20171012_1220.py	1;"	kind:file	line:1
 ABCMeta	../lib/python2.7/_abcoll.py	/^from abc import ABCMeta, abstractmethod$/;"	kind:namespace	line:11
 ABCMeta	../lib/python2.7/abc.py	/^class ABCMeta(type):$/;"	kind:class	line:65
 ABCMeta	../local/lib/python2.7/_abcoll.py	/^from abc import ABCMeta, abstractmethod$/;"	kind:namespace	line:11
@@ -378,12 +382,16 @@ ComplexType	../lib/python2.7/types.py	/^    ComplexType = complex$/;"	kind:varia
 ComplexType	../local/lib/python2.7/types.py	/^    ComplexType = complex$/;"	kind:variable	line:21
 Container	../lib/python2.7/_abcoll.py	/^class Container:$/;"	kind:class	line:106
 Container	../local/lib/python2.7/_abcoll.py	/^class Container:$/;"	kind:class	line:106
+Courses	../logdapp/admin.py	/^from .models import Prof, Students, Courses$/;"	kind:namespace	line:6
+Courses	../logdapp/models.py	/^class Courses(models.Model):$/;"	kind:class	line:23
 DATABASES	../loggingdapp/settings.py	/^DATABASES = {$/;"	kind:variable	line:77
 DEBUG	../lib/python2.7/re.py	/^DEBUG = sre_compile.SRE_FLAG_DEBUG # dump pattern after compilation$/;"	kind:variable	line:130
 DEBUG	../local/lib/python2.7/re.py	/^DEBUG = sre_compile.SRE_FLAG_DEBUG # dump pattern after compilation$/;"	kind:variable	line:130
 DEBUG	../loggingdapp/settings.py	/^DEBUG = True$/;"	kind:variable	line:26
 DIGITS	../lib/python2.7/sre_parse.py	/^DIGITS = set("0123456789")$/;"	kind:variable	line:22
 DIGITS	../local/lib/python2.7/sre_parse.py	/^DIGITS = set("0123456789")$/;"	kind:variable	line:22
+Degree	../logdapp/models.py	/^    Degree = models.CharField(max_length = 20)$/;"	kind:variable	line:19
+Department	../logdapp/models.py	/^    Department = models.CharField(max_length = 25)$/;"	kind:variable	line:20
 DictMixin	../lib/python2.7/UserDict.py	/^class DictMixin:$/;"	kind:class	line:120
 DictMixin	../local/lib/python2.7/UserDict.py	/^class DictMixin:$/;"	kind:class	line:120
 DictProxyType	../lib/python2.7/types.py	/^DictProxyType = type(TypeType.__dict__)$/;"	kind:variable	line:77
@@ -394,6 +402,7 @@ ESCAPES	../lib/python2.7/sre_parse.py	/^ESCAPES = {$/;"	kind:variable	line:29
 ESCAPES	../local/lib/python2.7/sre_parse.py	/^ESCAPES = {$/;"	kind:variable	line:29
 EllipsisType	../lib/python2.7/types.py	/^EllipsisType = type(Ellipsis)$/;"	kind:variable	line:75
 EllipsisType	../local/lib/python2.7/types.py	/^EllipsisType = type(Ellipsis)$/;"	kind:variable	line:75
+Email	../logdapp/models.py	/^    Email = models.EmailField()$/;"	kind:variable	line:21
 EncodedFile	../lib/python2.7/codecs.py	/^def EncodedFile(file, data_encoding, file_encoding=None, errors='strict'):$/;"	kind:function	line:905
 EncodedFile	../local/lib/python2.7/codecs.py	/^def EncodedFile(file, data_encoding, file_encoding=None, errors='strict'):$/;"	kind:function	line:905
 Error	../lib/python2.7/locale.py	/^    Error = ValueError$/;"	kind:variable	line:59
@@ -424,7 +433,8 @@ HEXDIGITS	../lib/python2.7/sre_parse.py	/^HEXDIGITS = set("0123456789abcdefABCDE
 HEXDIGITS	../local/lib/python2.7/sre_parse.py	/^HEXDIGITS = set("0123456789abcdefABCDEF")$/;"	kind:variable	line:25
 Hashable	../lib/python2.7/_abcoll.py	/^class Hashable:$/;"	kind:class	line:32
 Hashable	../local/lib/python2.7/_abcoll.py	/^class Hashable:$/;"	kind:class	line:32
-HttpResponse	../logdapp/views.py	/^from django.http import HttpResponse$/;"	kind:namespace	line:8
+HttpResponse	../logdapp/views.py	/^from django.http import HttpResponse$/;"	kind:namespace	line:3
+ID	../logdapp/models.py	/^    ID = models.CharField(max_length=10,primary_key=True)$/;"	kind:variable	line:24
 IN	../lib/python2.7/sre_constants.py	/^IN = "in"$/;"	kind:variable	line:48
 IN	../local/lib/python2.7/sre_constants.py	/^IN = "in"$/;"	kind:variable	line:48
 INFO	../lib/python2.7/sre_constants.py	/^INFO = "info"$/;"	kind:variable	line:50
@@ -981,6 +991,10 @@ MemberDescriptorType	../lib/python2.7/types.py	/^MemberDescriptorType = type(Fun
 MemberDescriptorType	../local/lib/python2.7/types.py	/^MemberDescriptorType = type(FunctionType.func_globals)$/;"	kind:variable	line:82
 MethodType	../lib/python2.7/types.py	/^MethodType = type(_x._m)$/;"	kind:variable	line:57
 MethodType	../local/lib/python2.7/types.py	/^MethodType = type(_x._m)$/;"	kind:variable	line:57
+Migration	../logdapp/migrations/0001_initial.py	/^class Migration(migrations.Migration):$/;"	kind:class	line:8
+Migration	../logdapp/migrations/backup/0001_initial.py	/^class Migration(migrations.Migration):$/;"	kind:class	line:8
+Migration	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^class Migration(migrations.Migration):$/;"	kind:class	line:8
+Migration	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^class Migration(migrations.Migration):$/;"	kind:class	line:8
 ModuleType	../lib/python2.7/site.py	/^    ModuleType = type(os)$/;"	kind:variable	line:90
 ModuleType	../lib/python2.7/types.py	/^ModuleType = type(sys)$/;"	kind:variable	line:62
 ModuleType	../local/lib/python2.7/site.py	/^    ModuleType = type(os)$/;"	kind:variable	line:90
@@ -997,6 +1011,8 @@ NOT_LITERAL	../lib/python2.7/sre_constants.py	/^NOT_LITERAL = "not_literal"$/;"	
 NOT_LITERAL	../local/lib/python2.7/sre_constants.py	/^NOT_LITERAL = "not_literal"$/;"	kind:variable	line:60
 NOT_LITERAL_IGNORE	../lib/python2.7/sre_constants.py	/^NOT_LITERAL_IGNORE = "not_literal_ignore"$/;"	kind:variable	line:61
 NOT_LITERAL_IGNORE	../local/lib/python2.7/sre_constants.py	/^NOT_LITERAL_IGNORE = "not_literal_ignore"$/;"	kind:variable	line:61
+Name	../logdapp/models.py	/^    Name = models.CharField(max_length = 200)$/;"	kind:variable	line:16
+Name	../logdapp/models.py	/^    Name = models.CharField(max_length=20)$/;"	kind:variable	line:25
 NoneType	../lib/python2.7/types.py	/^NoneType = type(None)$/;"	kind:variable	line:12
 NoneType	../local/lib/python2.7/types.py	/^NoneType = type(None)$/;"	kind:variable	line:12
 NotImplementedType	../lib/python2.7/types.py	/^NotImplementedType = type(NotImplemented)$/;"	kind:variable	line:78
@@ -1015,6 +1031,8 @@ PREFIXES	../lib/python2.7/site.py	/^PREFIXES = [sys.prefix, sys.exec_prefix]$/;"
 PREFIXES	../local/lib/python2.7/site.py	/^PREFIXES = [sys.prefix, sys.exec_prefix]$/;"	kind:variable	line:78
 Pattern	../lib/python2.7/sre_parse.py	/^class Pattern:$/;"	kind:class	line:65
 Pattern	../local/lib/python2.7/sre_parse.py	/^class Pattern:$/;"	kind:class	line:65
+Prof	../logdapp/admin.py	/^from .models import Prof, Students, Courses$/;"	kind:namespace	line:6
+Prof	../logdapp/models.py	/^class Prof(models.Model):$/;"	kind:class	line:8
 Quitter	../lib/python2.7/site.py	/^    class Quitter(object):$/;"	kind:class	line:391
 Quitter	../local/lib/python2.7/site.py	/^    class Quitter(object):$/;"	kind:class	line:391
 RANGE	../lib/python2.7/sre_constants.py	/^RANGE = "range"$/;"	kind:variable	line:62
@@ -1026,6 +1044,7 @@ REPEAT_CHARS	../local/lib/python2.7/sre_parse.py	/^REPEAT_CHARS = "*+?{"$/;"	kin
 REPEAT_ONE	../lib/python2.7/sre_constants.py	/^REPEAT_ONE = "repeat_one"$/;"	kind:variable	line:64
 REPEAT_ONE	../local/lib/python2.7/sre_constants.py	/^REPEAT_ONE = "repeat_one"$/;"	kind:variable	line:64
 ROOT_URLCONF	../loggingdapp/settings.py	/^ROOT_URLCONF = 'loggingdapp.urls'$/;"	kind:variable	line:53
+Roll_Number	../logdapp/models.py	/^    Roll_Number = models.AutoField(primary_key=True)$/;"	kind:variable	line:17
 SEEK_CUR	../lib/python2.7/os.py	/^SEEK_CUR = 1$/;"	kind:variable	line:128
 SEEK_CUR	../local/lib/python2.7/os.py	/^SEEK_CUR = 1$/;"	kind:variable	line:128
 SEEK_END	../lib/python2.7/os.py	/^SEEK_END = 2$/;"	kind:variable	line:129
@@ -1169,6 +1188,7 @@ S_IXUSR	../lib/python2.7/stat.py	/^S_IXUSR = 00100$/;"	kind:variable	line:73
 S_IXUSR	../local/lib/python2.7/stat.py	/^S_IXUSR = 00100$/;"	kind:variable	line:73
 Scanner	../lib/python2.7/re.py	/^class Scanner:$/;"	kind:class	line:306
 Scanner	../local/lib/python2.7/re.py	/^class Scanner:$/;"	kind:class	line:306
+Semester	../logdapp/models.py	/^    Semester = models.IntegerField()$/;"	kind:variable	line:18
 Sequence	../lib/python2.7/_abcoll.py	/^class Sequence(Sized, Iterable, Container):$/;"	kind:class	line:590
 Sequence	../local/lib/python2.7/_abcoll.py	/^class Sequence(Sized, Iterable, Container):$/;"	kind:class	line:590
 Set	../lib/python2.7/_abcoll.py	/^class Set(Sized, Iterable, Container):$/;"	kind:class	line:139
@@ -1675,6 +1695,8 @@ StringTypes	../lib/python2.7/types.py	/^    StringTypes = (StringType, UnicodeTy
 StringTypes	../lib/python2.7/types.py	/^    StringTypes = (StringType,)$/;"	kind:variable	line:34
 StringTypes	../local/lib/python2.7/types.py	/^    StringTypes = (StringType, UnicodeType)$/;"	kind:variable	line:32
 StringTypes	../local/lib/python2.7/types.py	/^    StringTypes = (StringType,)$/;"	kind:variable	line:34
+Students	../logdapp/admin.py	/^from .models import Prof, Students, Courses$/;"	kind:namespace	line:6
+Students	../logdapp/models.py	/^class Students(models.Model):$/;"	kind:class	line:15
 SubPattern	../lib/python2.7/sre_parse.py	/^class SubPattern:$/;"	kind:class	line:90
 SubPattern	../local/lib/python2.7/sre_parse.py	/^class SubPattern:$/;"	kind:class	line:90
 T	../lib/python2.7/encodings/punycode.py	/^def T(j, bias):$/;"	kind:function	line:72
@@ -3172,6 +3194,7 @@ copy_reg.py	../lib/python2.7/copy_reg.py	1;"	kind:file	line:1
 copy_reg.py	../local/lib/python2.7/copy_reg.py	1;"	kind:file	line:1
 count	../lib/python2.7/_abcoll.py	/^    def count(self, value):$/;"	kind:member	line:630
 count	../local/lib/python2.7/_abcoll.py	/^    def count(self, value):$/;"	kind:member	line:630
+course	../logdapp/models.py	/^    course = models.CharField(max_length=200)$/;"	kind:variable	line:14
 cp037.py	../lib/python2.7/encodings/cp037.py	1;"	kind:file	line:1
 cp037.py	../local/lib/python2.7/encodings/cp037.py	1;"	kind:file	line:1
 cp1006.py	../lib/python2.7/encodings/cp1006.py	1;"	kind:file	line:1
@@ -3880,6 +3903,11 @@ defpath	../local/lib/python2.7/ntpath.py	/^    defpath = '\\\\Windows'$/;"	kind:
 defpath	../local/lib/python2.7/ntpath.py	/^defpath = '.;C:\\\\bin'$/;"	kind:variable	line:31
 defpath	../local/lib/python2.7/os.py	/^from os.path import (curdir, pardir, sep, pathsep, defpath, extsep, altsep,$/;"	kind:namespace	line:120
 defpath	../local/lib/python2.7/posixpath.py	/^defpath = ':\/bin:\/usr\/bin'$/;"	kind:variable	line:35
+department	../logdapp/models.py	/^    department = models.CharField(max_length=200)$/;"	kind:variable	line:11
+dependencies	../logdapp/migrations/0001_initial.py	/^    dependencies = [$/;"	kind:variable	line:12
+dependencies	../logdapp/migrations/backup/0001_initial.py	/^    dependencies = [$/;"	kind:variable	line:12
+dependencies	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^    dependencies = [$/;"	kind:variable	line:10
+dependencies	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^    dependencies = [$/;"	kind:variable	line:10
 devnull	../lib/python2.7/ntpath.py	/^devnull = 'nul'$/;"	kind:variable	line:37
 devnull	../lib/python2.7/posixpath.py	/^devnull = '\/dev\/null'$/;"	kind:variable	line:37
 devnull	../local/lib/python2.7/ntpath.py	/^devnull = 'nul'$/;"	kind:variable	line:37
@@ -3921,6 +3949,7 @@ easy_install	../bin/easy_install	1;"	kind:file	line:1
 easy_install	../local/bin/easy_install	1;"	kind:file	line:1
 easy_install-2.7	../bin/easy_install-2.7	1;"	kind:file	line:1
 easy_install-2.7	../local/bin/easy_install-2.7	1;"	kind:file	line:1
+email	../logdapp/models.py	/^    email = models.EmailField()$/;"	kind:variable	line:13
 encode	../lib/python2.7/codecs.py	/^    def encode(self, input, errors='strict'):$/;"	kind:member	line:132
 encode	../lib/python2.7/codecs.py	/^    def encode(self, input, final=False):$/;"	kind:member	line:191
 encode	../lib/python2.7/codecs.py	/^    def encode(self, input, final=False):$/;"	kind:member	line:229
@@ -4586,6 +4615,12 @@ extsep	../local/lib/python2.7/os.py	/^from os.path import (curdir, pardir, sep, 
 extsep	../local/lib/python2.7/posixpath.py	/^extsep = '.'$/;"	kind:variable	line:32
 f	../lib/python2.7/sre_constants.py	/^    f = open("sre_constants.h", "w")$/;"	kind:variable	line:227
 f	../local/lib/python2.7/sre_constants.py	/^    f = open("sre_constants.h", "w")$/;"	kind:variable	line:227
+fields	../logdapp/migrations/0001_initial.py	/^            fields=[$/;"	kind:variable	line:18
+fields	../logdapp/migrations/0001_initial.py	/^            fields=[$/;"	kind:variable	line:25
+fields	../logdapp/migrations/0001_initial.py	/^            fields=[$/;"	kind:variable	line:36
+fields	../logdapp/migrations/backup/0001_initial.py	/^            fields=[$/;"	kind:variable	line:18
+fields	../logdapp/migrations/backup/0001_initial.py	/^            fields=[$/;"	kind:variable	line:25
+fields	../logdapp/migrations/backup/0001_initial.py	/^            fields=[$/;"	kind:variable	line:36
 file_encoding	../lib/python2.7/codecs.py	/^    file_encoding = 'unknown'$/;"	kind:variable	line:759
 file_encoding	../local/lib/python2.7/codecs.py	/^    file_encoding = 'unknown'$/;"	kind:variable	line:759
 filter	../lib/python2.7/fnmatch.py	/^def filter(names, pat):$/;"	kind:function	line:45
@@ -4984,7 +5019,9 @@ imp	../local/lib/python2.7/distutils/__init__.py	/^import imp$/;"	kind:namespace
 include	../loggingdapp/urls.py	/^from django.conf.urls import include, url$/;"	kind:namespace	line:16
 index	../lib/python2.7/_abcoll.py	/^    def index(self, value):$/;"	kind:member	line:621
 index	../local/lib/python2.7/_abcoll.py	/^    def index(self, value):$/;"	kind:member	line:621
-index	../logdapp/views.py	/^def index(request):$/;"	kind:function	line:11
+index	../logdapp/views.py	/^def index(request):$/;"	kind:function	line:6
+initial	../logdapp/migrations/0001_initial.py	/^    initial = True$/;"	kind:variable	line:10
+initial	../logdapp/migrations/backup/0001_initial.py	/^    initial = True$/;"	kind:variable	line:10
 insert	../lib/python2.7/_abcoll.py	/^    def insert(self, index, value):$/;"	kind:member	line:658
 insert	../lib/python2.7/sre_parse.py	/^    def insert(self, index, code):$/;"	kind:member	line:147
 insert	../local/lib/python2.7/_abcoll.py	/^    def insert(self, index, value):$/;"	kind:member	line:658
@@ -5266,6 +5303,16 @@ mbcs_decode	../lib/python2.7/encodings/mbcs.py	/^from codecs import mbcs_encode,
 mbcs_decode	../local/lib/python2.7/encodings/mbcs.py	/^from codecs import mbcs_encode, mbcs_decode$/;"	kind:namespace	line:12
 mbcs_encode	../lib/python2.7/encodings/mbcs.py	/^from codecs import mbcs_encode, mbcs_decode$/;"	kind:namespace	line:12
 mbcs_encode	../local/lib/python2.7/encodings/mbcs.py	/^from codecs import mbcs_encode, mbcs_decode$/;"	kind:namespace	line:12
+migrations	../logdapp/migrations/0001_initial.py	/^from django.db import migrations, models$/;"	kind:namespace	line:5
+migrations	../logdapp/migrations/backup/0001_initial.py	/^from django.db import migrations, models$/;"	kind:namespace	line:5
+migrations	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^from django.db import migrations$/;"	kind:namespace	line:5
+migrations	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^from django.db import migrations$/;"	kind:namespace	line:5
+model_name	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^            model_name='courses',$/;"	kind:variable	line:16
+model_name	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^            model_name='students',$/;"	kind:variable	line:21
+model_name	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^            model_name='courses',$/;"	kind:variable	line:16
+model_name	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^            model_name='students',$/;"	kind:variable	line:21
+models	../logdapp/migrations/0001_initial.py	/^from django.db import migrations, models$/;"	kind:namespace	line:5
+models	../logdapp/migrations/backup/0001_initial.py	/^from django.db import migrations, models$/;"	kind:namespace	line:5
 models	../logdapp/models.py	/^from django.db import models$/;"	kind:namespace	line:4
 models.py	../logdapp/models.py	1;"	kind:file	line:1
 module	../lib/python2.7/distutils/__init__.py	/^import opcode # opcode is not a virtualenv module, so we can use it to find the stdlib$/;"	kind:namespace	line:5
@@ -5283,12 +5330,23 @@ name	../local/lib/python2.7/os.py	/^    name = 'nt'$/;"	kind:variable	line:56
 name	../local/lib/python2.7/os.py	/^    name = 'os2'$/;"	kind:variable	line:70
 name	../local/lib/python2.7/os.py	/^    name = 'riscos'$/;"	kind:variable	line:103
 name	../logdapp/apps.py	/^    name = 'logdapp'$/;"	kind:variable	line:8
+name	../logdapp/migrations/0001_initial.py	/^            name='Courses',$/;"	kind:variable	line:17
+name	../logdapp/migrations/0001_initial.py	/^            name='Prof',$/;"	kind:variable	line:24
+name	../logdapp/migrations/0001_initial.py	/^            name='Students',$/;"	kind:variable	line:35
+name	../logdapp/migrations/backup/0001_initial.py	/^            name='Courses',$/;"	kind:variable	line:17
+name	../logdapp/migrations/backup/0001_initial.py	/^            name='Prof',$/;"	kind:variable	line:24
+name	../logdapp/migrations/backup/0001_initial.py	/^            name='Students',$/;"	kind:variable	line:35
+name	../logdapp/models.py	/^    name = models.CharField(max_length=200)$/;"	kind:variable	line:10
 nameprep	../lib/python2.7/encodings/idna.py	/^def nameprep(label):$/;"	kind:function	line:14
 nameprep	../local/lib/python2.7/encodings/idna.py	/^def nameprep(label):$/;"	kind:function	line:14
 needs	../lib/python2.7/encodings/bz2_codec.py	/^import bz2 # this codec needs the optional bz2 module !$/;"	kind:namespace	line:11
 needs	../lib/python2.7/encodings/zlib_codec.py	/^import zlib # this codec needs the optional zlib module !$/;"	kind:namespace	line:10
 needs	../local/lib/python2.7/encodings/bz2_codec.py	/^import bz2 # this codec needs the optional bz2 module !$/;"	kind:namespace	line:11
 needs	../local/lib/python2.7/encodings/zlib_codec.py	/^import zlib # this codec needs the optional zlib module !$/;"	kind:namespace	line:10
+new_name	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^            new_name='name',$/;"	kind:variable	line:18
+new_name	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^            new_name='name',$/;"	kind:variable	line:23
+new_name	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^            new_name='Name',$/;"	kind:variable	line:18
+new_name	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^            new_name='Name',$/;"	kind:variable	line:23
 new_sys_path	../bin/activate_this.py	/^new_sys_path = []$/;"	kind:variable	line:29
 new_sys_path	../local/bin/activate_this.py	/^new_sys_path = []$/;"	kind:variable	line:29
 next	../lib/python2.7/_abcoll.py	/^    def next(self):$/;"	kind:member	line:76
@@ -5317,6 +5375,7 @@ nt	../lib/python2.7/os.py	/^    import nt$/;"	kind:namespace	line:65
 nt	../local/lib/python2.7/os.py	/^    import nt$/;"	kind:namespace	line:65
 ntpath.py	../lib/python2.7/ntpath.py	1;"	kind:file	line:1
 ntpath.py	../local/lib/python2.7/ntpath.py	1;"	kind:file	line:1
+office	../logdapp/models.py	/^    office = models.CharField(max_length=200)$/;"	kind:variable	line:12
 old_build_ext	../lib/python2.7/distutils/__init__.py	/^    from distutils.command.build_ext import build_ext as old_build_ext$/;"	kind:namespace	line:36
 old_build_ext	../local/lib/python2.7/distutils/__init__.py	/^    from distutils.command.build_ext import build_ext as old_build_ext$/;"	kind:namespace	line:36
 old_find_config_files	../lib/python2.7/distutils/__init__.py	/^old_find_config_files = dist.Distribution.find_config_files$/;"	kind:variable	line:52
@@ -5327,6 +5386,10 @@ old_get_python_inc	../lib/python2.7/distutils/__init__.py	/^old_get_python_inc =
 old_get_python_inc	../local/lib/python2.7/distutils/__init__.py	/^old_get_python_inc = sysconfig.get_python_inc$/;"	kind:variable	line:74
 old_get_python_lib	../lib/python2.7/distutils/__init__.py	/^old_get_python_lib = sysconfig.get_python_lib$/;"	kind:variable	line:82
 old_get_python_lib	../local/lib/python2.7/distutils/__init__.py	/^old_get_python_lib = sysconfig.get_python_lib$/;"	kind:variable	line:82
+old_name	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^            old_name='Name',$/;"	kind:variable	line:17
+old_name	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^            old_name='Name',$/;"	kind:variable	line:22
+old_name	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^            old_name='name',$/;"	kind:variable	line:17
+old_name	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^            old_name='name',$/;"	kind:variable	line:22
 old_os_path	../bin/activate_this.py	/^old_os_path = os.environ.get('PATH', '')$/;"	kind:variable	line:16
 old_os_path	../local/bin/activate_this.py	/^old_os_path = os.environ.get('PATH', '')$/;"	kind:variable	line:16
 once_registry	../lib/python2.7/warnings.py	/^    from _warnings import (filters, default_action, once_registry,$/;"	kind:namespace	line:394
@@ -5341,6 +5404,10 @@ open	../lib/python2.7/codecs.py	/^def open(filename, mode='rb', encoding=None, e
 open	../local/lib/python2.7/codecs.py	/^def open(filename, mode='rb', encoding=None, errors='strict', buffering=1):$/;"	kind:function	line:856
 opengroup	../lib/python2.7/sre_parse.py	/^    def opengroup(self, name=None):$/;"	kind:member	line:74
 opengroup	../local/lib/python2.7/sre_parse.py	/^    def opengroup(self, name=None):$/;"	kind:member	line:74
+operations	../logdapp/migrations/0001_initial.py	/^    operations = [$/;"	kind:variable	line:15
+operations	../logdapp/migrations/backup/0001_initial.py	/^    operations = [$/;"	kind:variable	line:15
+operations	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^    operations = [$/;"	kind:variable	line:14
+operations	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^    operations = [$/;"	kind:variable	line:14
 operator	../lib/python2.7/locale.py	/^import operator$/;"	kind:namespace	line:16
 operator	../local/lib/python2.7/locale.py	/^import operator$/;"	kind:namespace	line:16
 opt_flags	../bin/python-config	/^opt_flags = [flag for (flag, val) in opts]$/;"	kind:variable	line:33
@@ -5452,6 +5519,7 @@ posixpath.py	../lib/python2.7/posixpath.py	1;"	kind:file	line:1
 posixpath.py	../local/lib/python2.7/posixpath.py	1;"	kind:file	line:1
 prev_sys_path	../bin/activate_this.py	/^prev_sys_path = list(sys.path)$/;"	kind:variable	line:23
 prev_sys_path	../local/bin/activate_this.py	/^prev_sys_path = list(sys.path)$/;"	kind:variable	line:23
+profid	../logdapp/models.py	/^    profid = models.AutoField(primary_key=True)$/;"	kind:variable	line:9
 ptcp154.py	../lib/python2.7/encodings/ptcp154.py	1;"	kind:file	line:1
 ptcp154.py	../local/lib/python2.7/encodings/ptcp154.py	1;"	kind:file	line:1
 punycode.py	../lib/python2.7/encodings/punycode.py	1;"	kind:file	line:1
@@ -5562,7 +5630,6 @@ removeduppaths	../lib/python2.7/site.py	/^def removeduppaths():$/;"	kind:functio
 removeduppaths	../local/lib/python2.7/site.py	/^def removeduppaths():$/;"	kind:function	line:113
 renames	../lib/python2.7/os.py	/^def renames(old, new):$/;"	kind:function	line:181
 renames	../local/lib/python2.7/os.py	/^def renames(old, new):$/;"	kind:function	line:181
-render	../logdapp/views.py	/^from django.shortcuts import render$/;"	kind:namespace	line:4
 replace_errors	../lib/python2.7/codecs.py	/^    replace_errors = None$/;"	kind:variable	line:1095
 replace_errors	../lib/python2.7/codecs.py	/^    replace_errors = lookup_error("replace")$/;"	kind:variable	line:1088
 replace_errors	../local/lib/python2.7/codecs.py	/^    replace_errors = None$/;"	kind:variable	line:1095
@@ -5918,9 +5985,12 @@ unicode_internal.py	../lib/python2.7/encodings/unicode_internal.py	1;"	kind:file
 unicode_internal.py	../local/lib/python2.7/encodings/unicode_internal.py	1;"	kind:file	line:1
 unicode_literals	../logdapp/admin.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:2
 unicode_literals	../logdapp/apps.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:2
+unicode_literals	../logdapp/migrations/0001_initial.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
+unicode_literals	../logdapp/migrations/backup/0001_initial.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
+unicode_literals	../logdapp/migrations/backup/0002_auto_20171012_1210.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
+unicode_literals	../logdapp/migrations/backup/0003_auto_20171012_1220.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
 unicode_literals	../logdapp/models.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:2
 unicode_literals	../logdapp/tests.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:2
-unicode_literals	../logdapp/views.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:2
 unicodedata	../lib/python2.7/encodings/idna.py	/^from unicodedata import ucd_3_2_0 as unicodedata$/;"	kind:namespace	line:4
 unicodedata	../local/lib/python2.7/encodings/idna.py	/^from unicodedata import ucd_3_2_0 as unicodedata$/;"	kind:namespace	line:4
 union	../lib/python2.7/_weakrefset.py	/^    def union(self, other):$/;"	kind:member	line:199
