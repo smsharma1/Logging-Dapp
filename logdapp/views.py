@@ -6,6 +6,14 @@ from django.shortcuts import render
 from Savoir import Savoir
 import json
 
+rpcuser = 'multichainrpc'
+rpcpasswd = 'BWVjg5eJJgvJbgNQL9iaoHBwLLapx369ZeWxRZHVhWAR'
+rpchost = 'localhost'
+rpcport = '2662'
+chainname = 'demo'
+
+api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
+
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -19,17 +27,8 @@ def get_name(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
-            # redirect to a new URL:            
-            rpcuser = 'multichainrpc'
-            rpcpasswd = '9zNmqm9JpwMWEz5Wn1JK8sgdNuqQSaPmjC6XvHXJ7Syo'
-            rpchost = 'localhost'
-            rpcport = '5752'
-            chainname = 'chain4'
-
-            api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
-            
-
-            return HttpResponse(json.dumps(api.getinfo()))
+            # redirect to a new URL:
+            return HttpResponse(json.dumps(api.getinfo(), indent=4, sort_keys=True))
 
     # if a GET (or any other method) we'll create a blank form
     else:
