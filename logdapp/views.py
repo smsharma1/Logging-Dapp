@@ -1,6 +1,8 @@
 # Create your views here.
 
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login,logout
 from .forms import NameForm
 from django.shortcuts import render
 from Savoir import Savoir
@@ -14,9 +16,9 @@ chainname = 'demo'
 
 api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
 
+@login_required(login_url="login/")
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
+    return render(request,"logdapp/index.html")
 
 def get_name(request):
     # if this is a POST request we need to process the form data
