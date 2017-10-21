@@ -1,0 +1,27 @@
+{% extends 'logdapp/base.html' %}
+
+{% block content %}
+<table style="width:70%">
+   
+    <tr>
+      <th>Roll Number</th>
+      <th>Course</th> 
+      <th>Grade</th>
+    </tr>
+    {% for d in data %} 
+    
+    <tr>
+    {% for dd in d %}  
+      <td> {{dd}}</td>
+    {% endfor%}
+    </tr>
+    {% endfor%}
+  </table>
+  <h1>Contact</h1>
+  <form role="form" action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit</button>
+  </form>
+
+{% endblock %}
