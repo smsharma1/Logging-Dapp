@@ -9,3 +9,8 @@ class LoginForm(AuthenticationForm):
                                widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
     password = forms.CharField(label="Password", max_length=30, 
                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password'}))
+
+class GradeForm(forms.Form):
+    RollNumber = forms.IntegerField()
+    Course = forms.CharField(max_length=10)
+    Grade = forms.CharField(max_length=2)
