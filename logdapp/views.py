@@ -12,6 +12,7 @@ import json
 from itertools import chain
 import configparser
 import os
+import binascii
 
 rpcuser = 'multichainrpc'
 # rpcpasswd = 'BWVjg5eJJgvJbgNQL9iaoHBwLLapx369ZeWxRZHVhWAR'
@@ -51,7 +52,7 @@ def grant_permissions(request):
 
 	# note that since multichain is installed for local user, no root access required
 	paramsparser = configparser.ConfigParser()
-	with open(os.environ["HOME"] + "~/.multichain/"+ serverchain + "/params.dat") as lines:
+	with open(os.environ["HOME"] + "/.multichain/"+ serverchain + "/params.dat") as lines:
 		lines = chain(("[top]",), lines)  # This line does the trick.
 		paramsparser.read_file(lines)
 
@@ -61,42 +62,23 @@ def grant_permissions(request):
 	with open(os.environ["HOME"] + "/.multichain/"+ serverchain + "/multichain.conf") as lines:
 		lines = chain(("[top]",), lines)  # This line does the trick.
 		credparser.read_file(lines)
-			
-	serveruser = credparser["rpcuser"]
-	serverpass = credparser["rpcpassword"]
+
+	serveruser = credparser["top"]["rpcuser"]
+	serverpass = credparser["top"]["rpcpassword"]
 	api = Savoir(serveruser, serverpass, "localhost", serverport, serverchain)
 
 	if request.method == 'POST':
 		for key, value in request.POST.lists():
 			print("%s %s" % (key, value))
-		key = json.loads(request.body)["key"]
-		print(key)
-		api.grant(str(key), logstream.write)
+		data = json.loads((request.body).decode('utf-8'))
+		key = data["key"]
+		user = data["user"]
+		password = data["password"]
+		# check user and password against OARS database if OK then
+		api.grant(str(key), "logstream.write")
 		return HttpResponse("Successfully received data")
 	else:
 		return HttpResponse("Please send a post request with key")
-
-def client_view(request):
-	# to do change chain name dynamically
-	clientchain = "chain1"
-	paramsparser = configparser.ConfigParser()
-	with open(os.environ["HOME"] + "~/.multichain/"+ clientchain + "/params.dat") as lines:
-		lines = chain(("[top]",), lines)  # This line does the trick.
-		paramsparser.read_file(lines)
-
-	clientport = paramsparser["top"]["default-rpc-port"].split()[0]
-
-	credparser = configparser.ConfigParser()
-	with open(os.environ["HOME"] + "/.multichain/chain1/multichain.conf") as lines:
-		lines = chain(("[top]",), lines)  # This line does the trick.
-		credparser.read_file(lines)
-
-	clientuser = credparser["rpcuser"]
-	clientpass = credparser["rpcpassword"]
-	api = Savoir(clientuser, clientpass, "localhost", clientport, clientchain)
-
-
-	return render(request,"logdapp/index.html")
 
 def get_grades(request):
 	try:
@@ -108,6 +90,24 @@ def get_grades(request):
 		return render(request,"logdapp/error.html")
 
 def update_grades(request):
+	clientchain = "chain1"
+	paramsparser = configparser.ConfigParser()
+	with open(os.environ["HOME"] + "/.multichain/"+ clientchain + "/params.dat") as lines:
+		lines = chain(("[top]",), lines)  # This line does the trick.
+		paramsparser.read_file(lines)
+
+	clientport = paramsparser["top"]["default-rpc-port"].split()[0]
+
+	credparser = configparser.ConfigParser()
+	with open(os.environ["HOME"] + "/.multichain/"+ clientchain + "/multichain.conf") as lines:
+		lines = chain(("[top]",), lines)  # This line does the trick.
+		credparser.read_file(lines)
+
+	clientuser = credparser["rpcuser"]
+	clientpass = credparser["rpcpassword"]
+	api = Savoir(clientuser, clientpass, "localhost", clientport, clientchain)
+	api.subscribe("logstream")
+
 	form_class = GradeForm
 	if request.method == 'POST':
 		form = form_class(data=request.POST)
@@ -117,15 +117,18 @@ def update_grades(request):
 			Grade = request.POST.get('Grade', '')
 		else:
 			return render(request,"logdapp/error.html")
-		try:
+		# try:
 			# return HttpResponse("UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course))
-			cursor = connection.cursor()
-			cursor.execute("UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course))
-			cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))
-			rows = cursor.fetchall()
-			return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
-		except:
-			 return render(request,"logdapp/error.html")
+		cursor = connection.cursor()
+		sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)
+		cursor.execute(sqlquery)
+		hexquery = "".join("{:02x}".format(ord(c)) for c in sqlquery)
+		api.publish("logstream", "1" ,hexquery)
+		cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))
+		rows = cursor.fetchall()
+		return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
+		# except:
+		# 	 return render(request,"logdapp/error.html")
 	elif request.method == 'GET':
 		try:
 			cursor = connection.cursor()

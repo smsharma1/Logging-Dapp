@@ -1,20 +1,53 @@
 #!/usr/bin/python
-import urllib.parse
 import requests
 from sys import stdin
+import sys, os
 import json
+from Savoir import Savoir
+import getpass, configparser
+from itertools import chain
 
-def send_data(data):
-    querydata = { 'key': str(data)}
-    # payload = urllib.parse.urlencode(querydata)
-    payload = json.dumps(querydata)
-    url = "http://127.0.0.1:8000/logdapp/grantpermissions/"
 
-    response = requests.request("POST", url, data=payload, verify=False)
-    print(response)
+def send_data(user, passwd, addr):
+	querydata = {
+		'key': str(addr),
+		'user': str(user),
+		'password': str(passwd),
+	}
+	payload = json.dumps(querydata)
+	# pass an https url here for security, this one is dummy
+	url = "http://172.17.0.2:8000/logdapp/grantpermissions/"
+	response = requests.request("POST", url, data=payload, verify=False)
+	return response
 
-data = stdin.read()
-data = json.loads(data);
-print(data[0])
+def main(argv):
+	user = input("OARS Username:")
+	passwd = getpass.getpass("Password for " + user + ":")
+	# ip = argv[0];
+	# port = argv[1];
 
-send_data(data[0])
+	clientchain = "chain1"
+	paramsparser = configparser.ConfigParser()
+	with open(os.environ["HOME"] + "/.multichain/"+ clientchain + "/params.dat") as lines:
+		lines = chain(("[top]",), lines)  # This line does the trick.
+		paramsparser.read_file(lines)
+
+	clientport = paramsparser["top"]["default-rpc-port"].split()[0]
+
+	credparser = configparser.ConfigParser()
+	with open(os.environ["HOME"] + "/.multichain/"+ clientchain + "/multichain.conf") as lines:
+		lines = chain(("[top]",), lines)  # This line does the trick.
+		credparser.read_file(lines)
+
+	clientuser = credparser["top"]["rpcuser"]
+	clientpass = credparser["top"]["rpcpassword"]
+	api = Savoir(clientuser, clientpass, "localhost", clientport, clientchain)
+
+	data = api.getaddresses()
+	print(data)
+	response = send_data(user, passwd, data[0])
+	if(response.status_code == 200):		
+		api.subscribe("logstream")
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
