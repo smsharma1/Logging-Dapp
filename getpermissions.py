@@ -5,9 +5,10 @@ from sys import stdin
 import json
 
 def send_data(data):
-    querydata = { 'key': data}
-    payload = urllib.parse.urlencode(querydata)
-    url = "http://localhost:8080"
+    querydata = { 'key': str(data)}
+    # payload = urllib.parse.urlencode(querydata)
+    payload = json.dumps(querydata)
+    url = "http://127.0.0.1:8000/logdapp/grantpermissions/"
 
     response = requests.request("POST", url, data=payload, verify=False)
     print(response)

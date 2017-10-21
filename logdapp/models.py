@@ -30,3 +30,4 @@ class Enrollment(models.Model):
     Prof_ID = models.ForeignKey(Prof)
     Grade = models.CharField(max_length=2)
 
+

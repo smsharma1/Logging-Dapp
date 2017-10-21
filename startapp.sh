@@ -7,6 +7,6 @@ user=$1
 pass=$2
 echo $user $pass
 
-multichaind chain5@$3:$4 -daemon
-multichain-cli chain5 getaddresses | python getpermissions.py
-
+multichaind chain1@$3:$4 -daemon
+multichain-cli chain1 getaddresses | python getpermissions.py
+multichain-cli chain1 stop
