@@ -3,7 +3,7 @@ if [ ! $# == 2 ]; then
     exit
 fi
 
-multichaind chain1@$3:$4 -daemon
+multichaind chain1@$1:$2 -daemon
 python getpermissions.py
-python manage.py runserver
+python manage.py runserver 5000
 multichain-cli chain1 stop

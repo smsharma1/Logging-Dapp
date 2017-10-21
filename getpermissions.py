@@ -16,7 +16,7 @@ def send_data(user, passwd, addr):
 	}
 	payload = json.dumps(querydata)
 	# pass an https url here for security, this one is dummy
-	url = "http://172.17.0.2:8000/logdapp/grantpermissions/"
+	url = "http://172.24.0.30:8000/logdapp/grantpermissions/"
 	response = requests.request("POST", url, data=payload, verify=False)
 	return response
 
@@ -46,6 +46,7 @@ def main(argv):
 	data = api.getaddresses()
 	print(data)
 	response = send_data(user, passwd, data[0])
+	print(response)
 	if(response.status_code == 200):		
 		api.subscribe("logstream")
 

@@ -3,6 +3,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
 from .forms import NameForm, GradeForm
 from django.shortcuts import render
 from django.conf import settings
@@ -75,8 +76,13 @@ def grant_permissions(request):
 		user = data["user"]
 		password = data["password"]
 		# check user and password against OARS database if OK then
-		api.grant(str(key), "logstream.write")
-		return HttpResponse("Successfully received data")
+		user = authenticate(username=user, password=password)
+		if user is not none:
+			api.grant(str(key), "send")
+			api.grant(str(key), "logstream.write")
+			return HttpResponse("Successfully received data")
+		else:
+			return HttpResponse("Incorrect Username or Password")
 	else:
 		return HttpResponse("Please send a post request with key")
 
@@ -103,8 +109,8 @@ def update_grades(request):
 		lines = chain(("[top]",), lines)  # This line does the trick.
 		credparser.read_file(lines)
 
-	clientuser = credparser["rpcuser"]
-	clientpass = credparser["rpcpassword"]
+	clientuser = credparser["top"]["rpcuser"]
+	clientpass = credparser["top"]["rpcpassword"]
 	api = Savoir(clientuser, clientpass, "localhost", clientport, clientchain)
 	api.subscribe("logstream")
 
