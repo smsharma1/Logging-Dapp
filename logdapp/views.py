@@ -75,6 +75,7 @@ def grant_permissions(request):
 		key = data["key"]
 		user = data["user"]
 		password = data["password"]
+		print(data)
 		# check user and password against OARS database if OK then
 		user = authenticate(username=user, password=password)
 		if user is not none:
