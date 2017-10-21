@@ -3,7 +3,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login,logout
 from .forms import NameForm, GradeForm
 from django.shortcuts import render
 from django.conf import settings
@@ -23,9 +22,8 @@ chainname = 'demo'
 
 api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
 
-@login_required(login_url="login/")
 def index(request):
-	return HttpResponse("Hello, world. You're at the polls index.")
+	return render(request,'logdapp/index.html')
 
 
 def get_name(request):
