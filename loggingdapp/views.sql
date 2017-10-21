@@ -1,5 +1,9 @@
 CREATE VIEW logdapp_student_1_view AS SELECT Student_ID_id, Course_ID_id, Grade FROM logdapp_enrollment WHERE Student_ID_id=1;
 
+CREATE VIEW logdapp_student_2_view AS SELECT Student_ID_id, Course_ID_id, Grade FROM logdapp_enrollment WHERE Student_ID_id=2;
+
+CREATE VIEW logdapp_prof_1_view AS SELECT Student_ID_id, Course_ID_id, Grade FROM logdapp_enrollment WHERE Prof_ID_id=1;
+
 CREATE TABLE logdapp_courses (ID varchar(10) NOT NULL PRIMARY KEY, Name varchar(20) NOT NULL);
 
 CREATE TABLE logdapp_students (Name varchar(200) NOT NULL, Roll_Number integer AUTO_INCREMENT NOT NULL PRIMARY KEY, Semester integer NOT NULL, Degree varchar(20) NOT NULL, Department varchar(25) NOT NULL, Email varchar(254) NOT NULL);
