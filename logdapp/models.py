@@ -30,3 +30,13 @@ class Enrollment(models.Model):
     Student_ID = models.ForeignKey(Students)
     Prof_ID = models.ForeignKey(Prof)
     Grade = models.CharField(max_length=2)
+
+class User(models.Model):
+    ID = models.ForeignKey(Prof,primary_key=True)
+    name = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
+
+class User_publickey(models.Model):
+    publickey = models.CharField(max_length=200,default='0',primary_key=True)
+    ID = models.ForeignKey(Prof)
+    
