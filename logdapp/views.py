@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 from .forms import NameForm, GradeForm
 from django.shortcuts import render
 from django.conf import settings
+from .models import User_publickey
 from django.db import connection
 from Savoir import Savoir
 import json
@@ -77,13 +78,20 @@ def grant_permissions(request):
 		password = data["password"]
 		print(data)
 		# check user and password against OARS database if OK then
-		user = authenticate(username=user, password=password)
-		if user is not none:
-			api.grant(str(key), "send")
-			api.grant(str(key), "logstream.write")
-			return HttpResponse("Successfully received data")
-		else:
-			return HttpResponse("Incorrect Username or Password")
+		# user = authenticate(username=user, password=password)
+		try:
+			cursor = connection.cursor()
+			cursor.execute("SELECT * FROM logdapp_user where ID_id='{}' and password='{}'".format(user,password))
+			rows = cursor.fetchall()
+			if rows is not None:
+				api.grant(str(key), "send")
+				api.grant(str(key), "logstream.write")
+				cursor.execute("INSERT into logdapp_user_publickey values ('{}', {})".format(str(key),user))
+				return HttpResponse("Successfully received data")
+			else:
+				return HttpResponse("Incorrect Username or Password")
+		except:
+			return render(request,"logdapp/error.html")
 	else:
 		return HttpResponse("Please send a post request with key")
 
@@ -124,18 +132,17 @@ def update_grades(request):
 			Grade = request.POST.get('Grade', '')
 		else:
 			return render(request,"logdapp/error.html")
-		# try:
-			# return HttpResponse("UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course))
-		cursor = connection.cursor()
-		sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)
-		cursor.execute(sqlquery)
-		hexquery = "".join("{:02x}".format(ord(c)) for c in sqlquery)
-		api.publish("logstream", "1" ,hexquery)
-		cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))
-		rows = cursor.fetchall()
-		return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
-		# except:
-		# 	 return render(request,"logdapp/error.html")
+		try:			
+			cursor = connection.cursor()
+			sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)
+			cursor.execute(sqlquery)
+			hexquery = "".join("{:02x}".format(ord(c)) for c in sqlquery)
+			api.publish("logstream", "1" ,hexquery)
+			cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))
+			rows = cursor.fetchall()
+			return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
+		except:
+			 return render(request,"logdapp/error.html")
 	elif request.method == 'GET':
 		try:
 			cursor = connection.cursor()
