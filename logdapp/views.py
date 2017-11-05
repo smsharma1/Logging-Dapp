@@ -16,18 +16,8 @@ import configparser
 import os
 import binascii
 
-rpcuser = 'multichainrpc'
-# rpcpasswd = 'BWVjg5eJJgvJbgNQL9iaoHBwLLapx369ZeWxRZHVhWAR'
-rpcpasswd = 'FQ8oQx4Y3fFu9zc1chprrmWXH9gP1qRqpxBnVi7QneCL'
-rpchost = 'localhost'
-rpcport = '8338'
-chainname = 'demo'
-
-api = Savoir(rpcuser, rpcpasswd, rpchost, rpcport, chainname)
-
 def index(request):
 	return render(request,'logdapp/index.html')
-
 
 def get_name(request):
 	# if this is a POST request we need to process the form data
