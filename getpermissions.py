@@ -23,6 +23,11 @@ def send_data(user, passwd, addr):
 def main(argv):
 	user = input("OARS Username:")
 	passwd = getpass.getpass("Password for " + user + ":")
+	
+	with open('Publickey.txt') as f:
+	    selfpublickey = RSA.importKey(f.read())
+    	f.close()
+
 	# ip = argv[0];
 	# port = argv[1];
 
@@ -45,7 +50,7 @@ def main(argv):
 
 	data = api.getaddresses()
 	print(data)
-	response = send_data(user, passwd, data[0])
+	response = send_data(user, passwd, data[0], selfpublickey.exportKey())
 	print(response)
 	if(response.status_code == 200):		
 		api.subscribe("logstream")
