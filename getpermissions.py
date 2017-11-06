@@ -13,7 +13,7 @@ def send_data(user, passwd, addr, publickey):
 		'key': str(addr),
 		'user': str(user),
 		'password': str(passwd),
-		'publickey': str(publickey),
+		'publickey': publickey.decode(),
 	}
 	payload = json.dumps(querydata)
 	# pass an https url here for security, this one is dummy
