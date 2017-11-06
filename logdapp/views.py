@@ -15,7 +15,7 @@ from itertools import chain
 from logdapp.utils import get_multichain_info
 from Crypto.Hash import SHA256
 from Crypto.Signature import pkcs1_15
-import json, configparser, os, binascii
+import json, configparser, os, binascii, base64, codecs
 
 def index(request):
 	return render(request,'logdapp/index.html')
@@ -64,7 +64,8 @@ def grant_permissions(request):
 			if rows is not None:
 				api.grant(str(key), "send")
 				api.grant(str(key), "logstream.write")
-				cursor.execute("INSERT into logdapp_user_publickey values ('{}', {})".format(str(publickey),user))
+				print(base64.b64encode(publickey.encode()))
+				cursor.execute("INSERT into logdapp_user_publickey values ('{}', {})".format(base64.b64encode(publickey.encode()),user))
 				return HttpResponse("Successfully received data")
 			else:
 				return HttpResponse("Incorrect Username or Password")
@@ -78,24 +79,37 @@ def get_grades(request):
 	cursor = connection.cursor()
 	cursor.execute("SELECT * FROM logdapp_student_{}_view".format(settings.STUDENT_ID))
 	rows = cursor.fetchall()
+
 	for one_row in rows:
 		print(one_row)
-		key = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2])			 
+		key = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2])
+		student_data = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2]) + "," + str(one_row[3])
+		print(student_data)
+		digest_data = SHA256.new(student_data.encode())
 		# fetch data from multichain
 		serverchain = "chain1"
 		chain_info = get_multichain_info()
 		api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
 		# check hash for equality
-		data = api.liststreamkeyitems("logstream", key)
-		for item in data:
-			pass
-
-		print(data)
-		try:
-			pkcs1_15.new(key).verify(h, encrypt)
-			print("The signature is valid.")
-		except:
-			print("render a page saying validation failed")
+		key_alldata = api.liststreamkeyitems("logstream", key)
+		recent_data = key_alldata[-1]
+		print(recent_data['data'])
+		h = binascii.unhexlify(codecs.encode(recent_data['data']))
+		flag = 0
+		cursor.execute("SELECT publickey FROM logdapp_user_publickey where prof_id_id = {}".format(one_row[2]))
+		prof_publickeys = cursor.fetchall()
+		for publickey in prof_publickeys:
+			print(publickey)
+			publickey = RSA.importKey(publickey[0])
+			try:
+				print("hash: ",h," digest_data: ", digest_data)
+				pkcs1_15.new(publickey).verify(digest_data,h)
+				flag = 1
+			except:
+				pass
+			
+		if(flag == 0):
+			return HttpResponse("Validation failed for {}. Talk to your instructor and OARS admin immediately.".format(one_row))
 
 	return render(request,"logdapp/viewgrades.html",{'data':rows})
 	# except:
@@ -129,23 +143,26 @@ def update_grades(request):
 			Grade = request.POST.get('Grade', '')
 		else:
 			return render(request,"logdapp/error.html")
-		try:
-			encoded_key = open("rsa_key.bin", "rb").read()
-			selfprivatekey = RSA.import_key(encoded_key, passphrase=str("temp"))
-			cursor = connection.cursor()
-			key = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID)
-			student_data = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID) + "," + str(Grade)
-			digest_data = SHA256.new(student_data.encode())
-			encrypted_student_data = pkcs1_15.new(selfprivatekey).sign(digest_data)
-			sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)				
-			hexquery = "".join("{:02x}".format(ord(c)) for c in str(encrypted_student_data[0]))
-			api.publish("logstream", key ,hexquery)
-			cursor.execute(sqlquery)
-			cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))					
-			rows = cursor.fetchall()
-			return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
-		except:
-			 return render(request,"logdapp/error.html")
+		# try:
+		encoded_key = open("rsa_key.bin", "rb").read()
+		selfprivatekey = RSA.import_key(encoded_key, passphrase=str("temp"))
+		cursor = connection.cursor()
+		key = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID)
+		student_data = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID) + "," + str(Grade)
+		print(student_data)
+		digest_data = SHA256.new(student_data.encode())
+		print("digest_data: ", digest_data)
+		encrypted_student_data = pkcs1_15.new(selfprivatekey).sign(digest_data)
+		sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)				
+		print(encrypted_student_data)
+		hexquery = codecs.decode(binascii.hexlify(encrypted_student_data))
+		api.publish("logstream", key ,hexquery)
+		cursor.execute(sqlquery)
+		cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))					
+		rows = cursor.fetchall()
+		return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
+		# except:
+		# 	 return render(request,"logdapp/error.html")
 	elif request.method == 'GET':
 		try:
 			cursor = connection.cursor()
