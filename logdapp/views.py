@@ -15,7 +15,7 @@ from itertools import chain
 from logdapp.utils import get_multichain_info
 from Crypto.Hash import SHA256
 from Crypto.Signature import pkcs1_15
-import json, configparser, os, binascii
+import json, configparser, os, binascii, base64
 
 def index(request):
 	return render(request,'logdapp/index.html')
@@ -64,7 +64,8 @@ def grant_permissions(request):
 			if rows is not None:
 				api.grant(str(key), "send")
 				api.grant(str(key), "logstream.write")
-				cursor.execute("INSERT into logdapp_user_publickey values ('{}', {})".format(str(publickey),user))
+				print(base64.b64encode(publickey.encode()))
+				cursor.execute("INSERT into logdapp_user_publickey values ('{}', {})".format(base64.b64encode(publickey.encode()),user))
 				return HttpResponse("Successfully received data")
 			else:
 				return HttpResponse("Incorrect Username or Password")
@@ -96,6 +97,8 @@ def get_grades(request):
 		cursor.execute("SELECT publickey FROM logdapp_user_publickey where ID_id = {}".format(one_row[2]))
 		prof_publickeys = cursor.fetchall()
 		for publickey in prof_publickeys:
+			print(publickey)
+			publickey = RSA.importKey(publickey[0])
 			try:
 				print("hash: ",h," digest_data: ", digest_data)
 				pkcs1_15.new(publickey).verify(h, digest_data)
