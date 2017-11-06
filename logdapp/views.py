@@ -53,6 +53,7 @@ def grant_permissions(request):
 		key = data["key"]
 		user = data["user"]
 		password = data["password"]
+		publickey = data["publickey"]
 		print(data)
 		# check user and password against OARS database if OK then
 		# user = authenticate(username=user, password=password)
@@ -63,7 +64,7 @@ def grant_permissions(request):
 			if rows is not None:
 				api.grant(str(key), "send")
 				api.grant(str(key), "logstream.write")
-				cursor.execute("INSERT into logdapp_user_publickey values ('{}', {})".format(str(key),user))
+				cursor.execute("INSERT into logdapp_user_publickey values ('{}', {})".format(str(publickey),user))
 				return HttpResponse("Successfully received data")
 			else:
 				return HttpResponse("Incorrect Username or Password")
@@ -86,6 +87,8 @@ def get_grades(request):
 		api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
 		# check hash for equality
 		data = api.liststreamkeyitems("logstream", key)
+		for item in data:
+
 		print(data)
 		try:
 			pkcs1_15.new(key).verify(h, encrypt)

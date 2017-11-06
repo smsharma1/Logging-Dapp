@@ -8,11 +8,12 @@ import getpass, configparser
 from itertools import chain
 from Crypto.PublicKey import RSA
 
-def send_data(user, passwd, addr):
+def send_data(user, passwd, addr, publickey):
 	querydata = {
 		'key': str(addr),
 		'user': str(user),
 		'password': str(passwd),
+		'publickey': str(publickey),
 	}
 	payload = json.dumps(querydata)
 	# pass an https url here for security, this one is dummy
@@ -23,9 +24,10 @@ def send_data(user, passwd, addr):
 def main(argv):
 	user = input("OARS Username:")
 	passwd = getpass.getpass("Password for " + user + ":")
-	
+	encryption_pass = "temp"
+
 	encoded_key = open("rsa_key.bin", "rb").read()
-	key = RSA.import_key(encoded_key, passphrase=str(passwd))
+	key = RSA.import_key(encoded_key, passphrase=str(encryption_pass))
 
 	clientchain = "chain1"
 	paramsparser = configparser.ConfigParser()
