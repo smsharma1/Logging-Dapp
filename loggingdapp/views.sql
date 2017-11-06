@@ -15,3 +15,5 @@ ALTER TABLE logdapp_enrollment ADD CONSTRAINT logdapp_enrollment_Course_ID_id_c7
 ALTER TABLE logdapp_enrollment ADD CONSTRAINT logdapp_enrollment_Prof_ID_id_02f8c550_fk_logdapp_prof_profid FOREIGN KEY (Prof_ID_id) REFERENCES logdapp_prof (profid);
 ALTER TABLE logdapp_enrollment ADD CONSTRAINT logdapp_enrollment_Student_ID_id_611e3c98_fk_logdapp_s FOREIGN KEY (Student_ID_id) REFERENCES logdapp_students (Roll_Number);
 COMMIT;
+
+CREATE TABLE logdapp_user (profid integer NOT NULL PRIMARY KEY ,USER varchar(10) NOT NULL, PASSWORD varchar(20) NOT NULL,FOREIGN KEY(profid) REFERENCES logdapp_prof (profid));

@@ -6,7 +6,7 @@ import json
 from Savoir import Savoir
 import getpass, configparser
 from itertools import chain
-
+from Crypto.PublicKey import RSA
 
 def send_data(user, passwd, addr):
 	querydata = {
@@ -23,8 +23,9 @@ def send_data(user, passwd, addr):
 def main(argv):
 	user = input("OARS Username:")
 	passwd = getpass.getpass("Password for " + user + ":")
-	# ip = argv[0];
-	# port = argv[1];
+	
+	encoded_key = open("rsa_key.bin", "rb").read()
+	key = RSA.import_key(encoded_key, passphrase=str(passwd))
 
 	clientchain = "chain1"
 	paramsparser = configparser.ConfigParser()
@@ -45,7 +46,7 @@ def main(argv):
 
 	data = api.getaddresses()
 	print(data)
-	response = send_data(user, passwd, data[0])
+	response = send_data(user, passwd, data[0], key.publickey().exportKey())
 	print(response)
 	if(response.status_code == 200):		
 		api.subscribe("logstream")

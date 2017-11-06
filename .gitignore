@@ -1,6 +1,6 @@
 loggingdapp/settings.py
 *.pyc
-
+rsa_key.bin
 logdapp/migrations/
 
 # Byte-compiled / optimized / DLL files

@@ -13,6 +13,8 @@ from Savoir import Savoir
 from Crypto.PublicKey import RSA
 from itertools import chain
 from logdapp.utils import get_multichain_info
+from Crypto.Hash import SHA256
+from Crypto.Signature import pkcs1_15
 import json, configparser, os, binascii
 
 def index(request):
@@ -42,7 +44,7 @@ def grant_permissions(request):
 	serverchain = "chain1"
 
 	chain_info = get_multichain_info()
-	api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info[["port"], serverchain)
+	api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
 
 	if request.method == 'POST':
 		for key, value in request.POST.lists():
@@ -71,22 +73,29 @@ def grant_permissions(request):
 		return HttpResponse("Please send a post request with key")
 
 def get_grades(request):
-	try:
-		cursor = connection.cursor()
-		cursor.execute("SELECT * FROM logdapp_student_{}_view".format(settings.STUDENT_ID))
-		rows = cursor.fetchall()
-		for one_row in rows:
-			key = str(one_row[1]) + "," + str(one_row[2]) + "," + str(one_row[3])			 
-			# fetch data from multichain
-			serverchain = "chain1"
-			chain_info = get_multichain_info()
-			api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info[["port"], serverchain)
-			# check hash for equality
-			data = json.loads(api.liststreamkeyitems("logstream", key))
-			print(data)
-		return render(request,"logdapp/viewgrades.html",{'data':rows})
-	except:
-		return render(request,"logdapp/error.html")
+	# try:
+	cursor = connection.cursor()
+	cursor.execute("SELECT * FROM logdapp_student_{}_view".format(settings.STUDENT_ID))
+	rows = cursor.fetchall()
+	for one_row in rows:
+		print(one_row)
+		key = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2])			 
+		# fetch data from multichain
+		serverchain = "chain1"
+		chain_info = get_multichain_info()
+		api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
+		# check hash for equality
+		data = api.liststreamkeyitems("logstream", key)
+		print(data)
+		try:
+			pkcs1_15.new(key).verify(h, encrypt)
+			print("The signature is valid.")
+		except:
+			print("render a page saying validation failed")
+
+	return render(request,"logdapp/viewgrades.html",{'data':rows})
+	# except:
+	# 	return render(request,"logdapp/error.html")
 
 def update_grades(request):
 	clientchain = "chain1"
@@ -105,7 +114,7 @@ def update_grades(request):
 	clientuser = credparser["top"]["rpcuser"]
 	clientpass = credparser["top"]["rpcpassword"]
 	api = Savoir(clientuser, clientpass, "localhost", clientport, clientchain)
-	api.subscribe("logstream")
+	print(api.getinfo())
 
 	form_class = GradeForm
 	if request.method == 'POST':
@@ -117,13 +126,13 @@ def update_grades(request):
 		else:
 			return render(request,"logdapp/error.html")
 		try:
-			with open('privatekey.txt') as f:
-				selfprivatekey = RSA.importKey(f.read())
-				f.close()
+			encoded_key = open("rsa_key.bin", "rb").read()
+			selfprivatekey = RSA.import_key(encoded_key, passphrase=str("temp"))
 			cursor = connection.cursor()
 			key = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID)
 			student_data = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID) + "," + str(Grade)
-			encrypted_student_data = selfprivatekey.encrypt(student_data.encode('utf-8'),16)
+			digest_data = SHA256.new(student_data.encode())
+			encrypted_student_data = pkcs1_15.new(selfprivatekey).sign(digest_data)
 			sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)				
 			hexquery = "".join("{:02x}".format(ord(c)) for c in str(encrypted_student_data[0]))
 			api.publish("logstream", key ,hexquery)
