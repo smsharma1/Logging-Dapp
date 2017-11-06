@@ -1,8 +1,9 @@
 from Crypto.PublicKey import RSA
+import os
 import getpass
-secret_code = getpass.getpass("Please enter the password to protect the key\n")
+secret_code = getpass.getpass("Please enter your cc password to protect the key\n")
 
-key = RSA.generate(2048)
+key = RSA.generate(2048,os.urandom)
 encrypted_key = key.exportKey(passphrase=secret_code, pkcs=8,
                               protection="scryptAndAES128-CBC")
 
