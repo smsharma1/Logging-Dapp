@@ -3,7 +3,6 @@ import configparser, os
 
 def get_multichain_info():
 	'''fetches multichain username, password and port only if multichain is installed with default settings'''
-	serverchain = "chain1"
 	chain_info = {}
 	# note that since multichain is installed for local user, no root access required
 	paramsparser = configparser.ConfigParser()

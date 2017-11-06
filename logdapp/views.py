@@ -117,21 +117,9 @@ def get_grades(request):
 
 def update_grades(request):
 	clientchain = "chain1"
-	paramsparser = configparser.ConfigParser()
-	with open(os.environ["HOME"] + "/.multichain/"+ clientchain + "/params.dat") as lines:
-		lines = chain(("[top]",), lines)  # This line does the trick.
-		paramsparser.read_file(lines)
 
-	clientport = paramsparser["top"]["default-rpc-port"].split()[0]
-
-	credparser = configparser.ConfigParser()
-	with open(os.environ["HOME"] + "/.multichain/"+ clientchain + "/multichain.conf") as lines:
-		lines = chain(("[top]",), lines)  # This line does the trick.
-		credparser.read_file(lines)
-
-	clientuser = credparser["top"]["rpcuser"]
-	clientpass = credparser["top"]["rpcpassword"]
-	api = Savoir(clientuser, clientpass, "localhost", clientport, clientchain)
+	chain_info = get_multichain_info()
+	api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], clientchain)
 	print(api.getinfo())
 
 	form_class = GradeForm
@@ -143,26 +131,26 @@ def update_grades(request):
 			Grade = request.POST.get('Grade', '')
 		else:
 			return render(request,"logdapp/error.html")
-		# try:
-		encoded_key = open("rsa_key.bin", "rb").read()
-		selfprivatekey = RSA.import_key(encoded_key, passphrase=str("temp"))
-		cursor = connection.cursor()
-		key = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID)
-		student_data = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID) + "," + str(Grade)
-		print(student_data)
-		digest_data = SHA256.new(student_data.encode())
-		print("digest_data: ", digest_data)
-		encrypted_student_data = pkcs1_15.new(selfprivatekey).sign(digest_data)
-		sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)				
-		print(encrypted_student_data)
-		hexquery = codecs.decode(binascii.hexlify(encrypted_student_data))
-		api.publish("logstream", key ,hexquery)
-		cursor.execute(sqlquery)
-		cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))					
-		rows = cursor.fetchall()
-		return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
-		# except:
-		# 	 return render(request,"logdapp/error.html")
+		try:
+			encoded_key = open("rsa_key.bin", "rb").read()
+			selfprivatekey = RSA.import_key(encoded_key, passphrase=str("temp"))
+			cursor = connection.cursor()
+			key = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID)
+			student_data = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID) + "," + str(Grade)
+			print(student_data)
+			digest_data = SHA256.new(student_data.encode())
+			print("digest_data: ", digest_data)
+			encrypted_student_data = pkcs1_15.new(selfprivatekey).sign(digest_data)
+			sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)				
+			print(encrypted_student_data)
+			hexquery = codecs.decode(binascii.hexlify(encrypted_student_data))
+			api.publish("logstream", key ,hexquery)
+			cursor.execute(sqlquery)
+			cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))					
+			rows = cursor.fetchall()
+			return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
+		except:
+			 return render(request,"logdapp/error.html")
 	elif request.method == 'GET':
 		try:
 			cursor = connection.cursor()
