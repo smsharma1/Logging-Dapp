@@ -88,6 +88,7 @@ def get_grades(request):
 		# check hash for equality
 		data = api.liststreamkeyitems("logstream", key)
 		for item in data:
+			pass
 
 		print(data)
 		try:
