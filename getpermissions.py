@@ -17,7 +17,8 @@ def send_data(user, passwd, addr, publickey):
 	}
 	payload = json.dumps(querydata)
 	# pass an https url here for security, this one is dummy
-	url = "http://172.24.0.30:8000/logdapp/grantpermissions/"
+	url = "http://192.168.0.107:8000/logdapp/grantpermissions/"
+	# url = "http://172.24.0.30:8000/logdapp/grantpermissions/"
 	response = requests.request("POST", url, data=payload, verify=False)
 	return response
 

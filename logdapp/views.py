@@ -78,23 +78,33 @@ def get_grades(request):
 	cursor = connection.cursor()
 	cursor.execute("SELECT * FROM logdapp_student_{}_view".format(settings.STUDENT_ID))
 	rows = cursor.fetchall()
+
 	for one_row in rows:
 		print(one_row)
-		key = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2])			 
+		key = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2])
+		student_data = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2]) + "," + str(one_row[3])
+		digest_data = SHA256.new(student_data.encode())
 		# fetch data from multichain
 		serverchain = "chain1"
 		chain_info = get_multichain_info()
 		api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
 		# check hash for equality
-		data = api.liststreamkeyitems("logstream", key)
-		for item in data:
-
-		print(data)
-		try:
-			pkcs1_15.new(key).verify(h, encrypt)
-			print("The signature is valid.")
-		except:
-			print("render a page saying validation failed")
+		key_alldata = api.liststreamkeyitems("logstream", key)
+		recent_data = key_alldata[-1]
+		h = recent_data['data']
+		flag = 0
+		cursor.execute("SELECT publickey FROM logdapp_user_publickey where ID_id = {}".format(one_row[2]))
+		prof_publickeys = cursor.fetchall()
+		for publickey in prof_publickeys:
+			try:
+				print("hash: ",h," digest_data: ", digest_data)
+				pkcs1_15.new(publickey).verify(h, digest_data)
+				flag = 1
+			except:
+				pass
+			
+		if(flag == 0):
+			return HttpResponse("Validation failed for {}. Talk to your instructor and OARS admin immediately.".format(one_row))
 
 	return render(request,"logdapp/viewgrades.html",{'data':rows})
 	# except:
@@ -135,6 +145,7 @@ def update_grades(request):
 			key = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID)
 			student_data = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID) + "," + str(Grade)
 			digest_data = SHA256.new(student_data.encode())
+			print("digest_data: ", digest_data)
 			encrypted_student_data = pkcs1_15.new(selfprivatekey).sign(digest_data)
 			sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)				
 			hexquery = "".join("{:02x}".format(ord(c)) for c in str(encrypted_student_data[0]))
