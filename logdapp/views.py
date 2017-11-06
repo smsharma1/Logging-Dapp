@@ -10,11 +10,10 @@ from django.conf import settings
 from .models import User_publickey
 from django.db import connection
 from Savoir import Savoir
-import json
+from Crypto.PublicKey import RSA
 from itertools import chain
-import configparser
-import os
-import binascii
+from logdapp.utils import get_multichain_info
+import json, configparser, os, binascii
 
 def index(request):
 	return render(request,'logdapp/index.html')
@@ -42,22 +41,8 @@ def grant_permissions(request):
 	# my server runs on docker
 	serverchain = "chain1"
 
-	# note that since multichain is installed for local user, no root access required
-	paramsparser = configparser.ConfigParser()
-	with open(os.environ["HOME"] + "/.multichain/"+ serverchain + "/params.dat") as lines:
-		lines = chain(("[top]",), lines)  # This line does the trick.
-		paramsparser.read_file(lines)
-
-	serverport = paramsparser["top"]["default-rpc-port"].split()[0]
-
-	credparser = configparser.ConfigParser()
-	with open(os.environ["HOME"] + "/.multichain/"+ serverchain + "/multichain.conf") as lines:
-		lines = chain(("[top]",), lines)  # This line does the trick.
-		credparser.read_file(lines)
-
-	serveruser = credparser["top"]["rpcuser"]
-	serverpass = credparser["top"]["rpcpassword"]
-	api = Savoir(serveruser, serverpass, "localhost", serverport, serverchain)
+	chain_info = get_multichain_info()
+	api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info[["port"], serverchain)
 
 	if request.method == 'POST':
 		for key, value in request.POST.lists():
@@ -90,6 +75,15 @@ def get_grades(request):
 		cursor = connection.cursor()
 		cursor.execute("SELECT * FROM logdapp_student_{}_view".format(settings.STUDENT_ID))
 		rows = cursor.fetchall()
+		for one_row in rows:
+			key = str(one_row[1]) + "," + str(one_row[2]) + "," + str(one_row[3])			 
+			# fetch data from multichain
+			serverchain = "chain1"
+			chain_info = get_multichain_info()
+			api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info[["port"], serverchain)
+			# check hash for equality
+			data = json.loads(api.liststreamkeyitems("logstream", key))
+			print(data)
 		return render(request,"logdapp/viewgrades.html",{'data':rows})
 	except:
 		return render(request,"logdapp/error.html")
@@ -122,13 +116,19 @@ def update_grades(request):
 			Grade = request.POST.get('Grade', '')
 		else:
 			return render(request,"logdapp/error.html")
-		try:			
+		try:
+			with open('privatekey.txt') as f:
+				selfprivatekey = RSA.importKey(f.read())
+				f.close()
 			cursor = connection.cursor()
-			sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)
+			key = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID)
+			student_data = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID) + "," + str(Grade)
+			encrypted_student_data = selfprivatekey.encrypt(student_data.encode('utf-8'),16)
+			sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)				
+			hexquery = "".join("{:02x}".format(ord(c)) for c in str(encrypted_student_data[0]))
+			api.publish("logstream", key ,hexquery)
 			cursor.execute(sqlquery)
-			hexquery = "".join("{:02x}".format(ord(c)) for c in sqlquery)
-			api.publish("logstream", "1" ,hexquery)
-			cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))
+			cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))					
 			rows = cursor.fetchall()
 			return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
 		except:
