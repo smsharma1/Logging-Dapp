@@ -1,18 +1,12 @@
-import os
 from Crypto.PublicKey import RSA
-from Crypto import Random
+import getpass
+secret_code = getpass.getpass("Please enter the password to protect the key\n")
 
-rng = Random.new().read
-RSAkey = RSA.generate(1024, rng) 
+key = RSA.generate(2048)
+encrypted_key = key.exportKey(passphrase=secret_code, pkcs=8,
+                              protection="scryptAndAES128-CBC")
 
-privatekey = RSAkey
-publickey = RSAkey.publickey()
-print(privatekey.exportKey()) #export under the 'PEM' format (I think)
-print(publickey.exportKey())
+file_out = open("rsa_key.bin", "wb")
+file_out.write(encrypted_key)
 
-file = open("PublicKey.txt", "wb")
-file.write(publickey.exportKey())
-file.close()
-file = open("PrivateKey.txt", "wb")
-file.write(privatekey.exportKey()) #save exported private key
-file.close()
+print(key.publickey().exportKey())
