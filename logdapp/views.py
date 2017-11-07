@@ -1,5 +1,3 @@
-# Create your views here.
-
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -20,41 +18,17 @@ import json, configparser, os, binascii, base64, codecs
 def index(request):
 	return render(request,'logdapp/index.html')
 
-def get_name(request):
-	# if this is a POST request we need to process the form data
-	if request.method == 'POST':
-		# create a form instance and populate it with data from the request:
-		form = NameForm(request.POST)
-		# check whether it's valid:
-		if form.is_valid():
-			# process the data in form.cleaned_data as required
-			# ...
-			# redirect to a new URL:
-			return HttpResponse(json.dumps(api.getinfo(), indent=4, sort_keys=True))
-
-	# if a GET (or any other method) we'll create a blank form
-	else:
-		form = NameForm()
-
-	return render(request, 'logdapp/name.html', {'form': form})
-
 @csrf_exempt
 def grant_permissions(request):
-	# my server runs on docker
-	serverchain = "chain1"
-
+	serverchain = settings.CHAIN_NAME
 	chain_info = get_multichain_info()
 	api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
-
 	if request.method == 'POST':
-		for key, value in request.POST.lists():
-			print("%s %s" % (key, value))
 		data = json.loads((request.body).decode('utf-8'))
 		key = data["key"]
 		user = data["user"]
 		password = data["password"]
 		publickey = data["publickey"]
-		print(data)
 		try:
 			cursor = connection.cursor()
 			cursor.execute("SELECT * FROM logdapp_user where ID_id='{}' and password='{}'".format(user,password))
@@ -84,7 +58,7 @@ def get_grades(request):
 		print(student_data)
 		digest_data = SHA256.new(student_data.encode())
 		# fetch data from multichain
-		serverchain = "chain1"
+		serverchain = settings.CHAIN_NAME
 		chain_info = get_multichain_info()
 		api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
 		# check hash for equality
@@ -120,14 +94,18 @@ def get_grades(request):
 	return render(request,"logdapp/viewgrades.html",{'data':rows})
 	# except:
 	# 	return render(request,"logdapp/error.html")
+@csrf_exempt
+def blockchain_breach(request):
+	if request.method == 'POST':
+		data = json.loads((request.body).decode('utf-8'))
+		print("Someone is making changes in bloack-chain. Look at the reverse data index {} in Logstream with key {}".format(data["rev_index"],data["key"]))
+		return HttpResponse("OK")
+	return HttpResponse("Default")
 
 def update_grades(request):
-	clientchain = "chain1"
-
+	clientchain = settings.CHAIN_NAME
 	chain_info = get_multichain_info()
 	api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], clientchain)
-	print(api.getinfo())
-
 	form_class = GradeForm
 	if request.method == 'POST':
 		form = form_class(data=request.POST)
@@ -143,12 +121,9 @@ def update_grades(request):
 			cursor = connection.cursor()
 			key = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID)
 			student_data = str(Course) + "," + str(Rollnumber) + "," + str(settings.PROF_ID) + "," + str(Grade)
-			print(student_data)
 			digest_data = SHA256.new(student_data.encode())
-			print("digest_data: ", digest_data)
 			encrypted_student_data = pkcs1_15.new(selfprivatekey).sign(digest_data)
 			sqlquery = "UPDATE logdapp_prof_{}_view SET Grade = '{}' WHERE Student_ID_id={} AND Course_ID_id='{}'".format(settings.PROF_ID,Grade,Rollnumber,Course)				
-			print(encrypted_student_data)
 			hexquery = codecs.decode(binascii.hexlify(encrypted_student_data))
 			api.publish("logstream", key ,hexquery)
 			cursor.execute(sqlquery)
