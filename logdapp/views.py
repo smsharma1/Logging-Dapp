@@ -92,22 +92,31 @@ def get_grades(request):
 		api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
 		# check hash for equality
 		key_alldata = api.liststreamkeyitems("logstream", key)
-		recent_data = key_alldata[-1]
-		print(recent_data['data'])
-		h = binascii.unhexlify(codecs.encode(recent_data['data']))
-		flag = 0
-		cursor.execute("SELECT publickey FROM logdapp_user_publickey where prof_id_id = {}".format(one_row[2]))
+		cursor.execute("SELECT publickey,address FROM logdapp_user_publickey where prof_id_id = {}".format(one_row[2]))
 		prof_publickeys = cursor.fetchall()
-		for publickey in prof_publickeys:
-			print(publickey)
-			publickey = RSA.importKey(publickey[0])
-			try:
-				print("hash: ",h," digest_data: ", digest_data)
-				pkcs1_15.new(publickey).verify(digest_data,h)
-				flag = 1
-			except:
+		print("prof keys data fetched from sql : ", prof_publickeys)
+		publickey = RSA.importKey(prof_publickeys[0][0])
+		address = prof_publickeys[0][1]
+		i = 0
+		for i in range(len(key_alldata)):
+			recent_data = key_alldata[-1-i]
+			print(recent_data['data'])						
+			flag = 0
+			print(publickey)			
+			if( address == recent_data['publisher']):
+				h = binascii.unhexlify(codecs.encode(recent_data['data']))
+				try:
+					print("hash: ",h," digest_data: ", digest_data)
+					pkcs1_15.new(publickey).verify(digest_data,h)
+					flag = 1
+					break
+				except:
+					pass
+				break #because sql data needs to match with last professor's update
+			else:
+				#raise alarm
 				pass
-			
+
 		if(flag == 0):
 			return HttpResponse("Validation failed for {}. Talk to your instructor and OARS admin immediately.".format(one_row))
 
@@ -148,7 +157,7 @@ def update_grades(request):
 			cursor.execute(sqlquery)
 			cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))					
 			rows = cursor.fetchall()
-			return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
+			return render(request,"logdapp/update_grades.html",{'data':rows,'form':form_class})
 		except:
 			 return render(request,"logdapp/error.html")
 	elif request.method == 'GET':
@@ -156,6 +165,6 @@ def update_grades(request):
 			cursor = connection.cursor()
 			cursor.execute("SELECT * FROM logdapp_prof_{}_view".format(settings.PROF_ID))
 			rows = cursor.fetchall()
-			return render(request,"logdapp/viewgrades.html",{'data':rows,'form':form_class})
+			return render(request,"logdapp/update_grades.html",{'data':rows,'form':form_class})
 		except:
 			return render(request,"logdapp/error.html")

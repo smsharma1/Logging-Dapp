@@ -3,17 +3,18 @@ import configparser, os
 
 def get_multichain_info():
 	'''fetches multichain username, password and port only if multichain is installed with default settings'''
+	chain_name = "chain1"
 	chain_info = {}
 	# note that since multichain is installed for local user, no root access required
 	paramsparser = configparser.ConfigParser()
-	with open(os.environ["HOME"] + "/.multichain/"+ serverchain + "/params.dat") as lines:
+	with open(os.environ["HOME"] + "/.multichain/"+ chain_name + "/params.dat") as lines:
 		lines = chain(("[top]",), lines)  # This line does the trick.
 		paramsparser.read_file(lines)
 
 	chain_info["port"] = paramsparser["top"]["default-rpc-port"].split()[0]
 
 	credparser = configparser.ConfigParser()
-	with open(os.environ["HOME"] + "/.multichain/"+ serverchain + "/multichain.conf") as lines:
+	with open(os.environ["HOME"] + "/.multichain/"+ chain_name + "/multichain.conf") as lines:
 		lines = chain(("[top]",), lines)  # This line does the trick.
 		credparser.read_file(lines)
 
