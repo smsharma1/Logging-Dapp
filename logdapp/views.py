@@ -57,20 +57,21 @@ def grant_permissions(request):
 		print(data)
 		# check user and password against OARS database if OK then
 		# user = authenticate(username=user, password=password)
-		try:
-			cursor = connection.cursor()
-			cursor.execute("SELECT * FROM logdapp_user where ID_id='{}' and password='{}'".format(user,password))
-			rows = cursor.fetchall()
-			if rows is not None:
-				api.grant(str(key), "send")
-				api.grant(str(key), "logstream.write")
-				print(base64.b64encode(publickey.encode()))
-				cursor.execute("INSERT into logdapp_user_publickey values ('{}', {})".format(base64.b64encode(publickey.encode()),user))
-				return HttpResponse("Successfully received data")
-			else:
-				return HttpResponse("Incorrect Username or Password")
-		except:
-			return render(request,"logdapp/error.html")
+		# try:
+		cursor = connection.cursor()
+		cursor.execute("SELECT * FROM logdapp_user where ID_id='{}' and password='{}'".format(user,password))
+		rows = cursor.fetchall()
+		if rows is not None:
+			api.grant(str(key), "send")
+			api.grant(str(key), "logstream.write")
+			print(base64.b64encode(publickey.encode()))
+			print(key)
+			cursor.execute("INSERT into logdapp_user_publickey (publickey,prof_id_id,address) values ('{}', {}, '{}')".format(base64.b64encode(publickey.encode()),user,key))
+			return HttpResponse("Successfully received data")
+		else:
+			return HttpResponse("Incorrect Username or Password")
+		# except:
+		# 	return render(request,"logdapp/error.html")
 	else:
 		return HttpResponse("Please send a post request with key")
 
