@@ -15,7 +15,7 @@ from itertools import chain
 from logdapp.utils import get_multichain_info
 from Crypto.Hash import SHA256
 from Crypto.Signature import pkcs1_15
-import json, configparser, os, binascii, base64, codecs
+import json, configparser, os, binascii, base64, codecs, requests
 
 def index(request):
 	return render(request,'logdapp/index.html')
@@ -76,54 +76,62 @@ def grant_permissions(request):
 		return HttpResponse("Please send a post request with key")
 
 def get_grades(request):
-	# try:
-	cursor = connection.cursor()
-	cursor.execute("SELECT * FROM logdapp_student_{}_view".format(settings.STUDENT_ID))
-	rows = cursor.fetchall()
+	try:
+		cursor = connection.cursor()
+		cursor.execute("SELECT * FROM logdapp_student_{}_view".format(settings.STUDENT_ID))
+		rows = cursor.fetchall()
 
-	for one_row in rows:
-		print(one_row)
-		key = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2])
-		student_data = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2]) + "," + str(one_row[3])
-		print(student_data)
-		digest_data = SHA256.new(student_data.encode())
-		# fetch data from multichain
-		serverchain = "chain1"
-		chain_info = get_multichain_info()
-		api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
-		# check hash for equality
-		key_alldata = api.liststreamkeyitems("logstream", key)
-		cursor.execute("SELECT publickey,address FROM logdapp_user_publickey where prof_id_id = {}".format(one_row[2]))
-		prof_publickeys = cursor.fetchall()
-		print("prof keys data fetched from sql : ", prof_publickeys)
-		publickey = RSA.importKey(prof_publickeys[0][0])
-		address = prof_publickeys[0][1]
-		i = 0
-		for i in range(len(key_alldata)):
-			recent_data = key_alldata[-1-i]
-			print(recent_data['data'])						
-			flag = 0
-			print(publickey)			
-			if( address == recent_data['publishers'][0]):
-				h = binascii.unhexlify(codecs.encode(recent_data['data']))
-				try:
-					print("hash: ",h," digest_data: ", digest_data)
-					pkcs1_15.new(publickey).verify(digest_data,h)
-					flag = 1
-					break
-				except:
-					pass
-				break #because sql data needs to match with last professor's update
-			else:
-				#raise alarm
-				pass
+		for one_row in rows:
+			key = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2])
+			student_data = str(one_row[0]) + "," + str(one_row[1]) + "," + str(one_row[2]) + "," + str(one_row[3])
+			digest_data = SHA256.new(student_data.encode())
+			# fetch data from multichain
+			serverchain = "chain1"
+			chain_info = get_multichain_info()
+			api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)		
+			key_alldata = api.liststreamkeyitems("logstream", key)
+			cursor.execute("SELECT publickey,address FROM logdapp_user_publickey where prof_id_id = {}".format(one_row[2]))
+			prof_publickeys = cursor.fetchall()
+			# print("prof keys data fetched from sql : ", prof_publickeys)
+			publickey = RSA.importKey(prof_publickeys[0][0])
+			address = prof_publickeys[0][1]
+			i = 0
+			for i in range(len(key_alldata)):
+				recent_data = key_alldata[-1-i]
+				print(recent_data['data'])						
+				flag = 0
+				print(publickey)			
+				if( address == recent_data['publishers'][0]):
+					h = binascii.unhexlify(codecs.encode(recent_data['data']))
+					try:
+						# verifying hash with professor's signature
+						pkcs1_15.new(publickey).verify(digest_data,h)
+						flag = 1
+					except:
+						pass
+					break #because sql data needs to match with last professor's update
+				else:
+					#raise alarm
+					try:
+						post_data = {
+							'key': key,
+							'rev_index' : i,
+						}
+						payload = json.dumps(post_data)
+						response = requests.post('http://' + settings.SERVER_ADDRESS +'/logdapp/breach/' , data=payload, verify=False)
+						if(response.content == "OK".encode()):
+							print("Debug data sent to OARS.")						
+						else:
+							print("Inform OARS that something went wrong with blockchain breach view and mail following data to OARS guys: ", post_data)
+					except:
+						print("Be a nice boy and mail following data to OARS guys: ", post_data)
 
-		if(flag == 0):
-			return HttpResponse("Validation failed for {}. Talk to your instructor and OARS admin immediately.".format(one_row))
+			if(flag == 0):
+				return HttpResponse("Validation failed for {}. Talk to your instructor and OARS admin immediately.".format(one_row))
 
-	return render(request,"logdapp/viewgrades.html",{'data':rows})
-	# except:
-	# 	return render(request,"logdapp/error.html")
+		return render(request,"logdapp/viewgrades.html",{'data':rows})
+	except:
+		return render(request,"logdapp/error.html")
 
 def update_grades(request):
 	clientchain = "chain1"
