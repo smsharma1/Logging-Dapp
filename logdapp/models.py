@@ -37,6 +37,9 @@ class User(models.Model):
     password = models.CharField(max_length=200)
 
 class User_publickey(models.Model):
-    publickey = models.CharField(max_length=200,default='0',primary_key=True)
-    ID = models.ForeignKey(Prof)
+    ID = models.AutoField(primary_key=True)
+    prof_id = models.ForeignKey(Prof,null=True)
+    publickey = models.CharField(max_length=1000,null=True)
+    address = models.CharField(max_length=200,null=True)
+
     
