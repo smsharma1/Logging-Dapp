@@ -103,7 +103,7 @@ def get_grades(request):
 			print(recent_data['data'])						
 			flag = 0
 			print(publickey)			
-			if( address == recent_data['publisher']):
+			if( address == recent_data['publishers'][0]):
 				h = binascii.unhexlify(codecs.encode(recent_data['data']))
 				try:
 					print("hash: ",h," digest_data: ", digest_data)
