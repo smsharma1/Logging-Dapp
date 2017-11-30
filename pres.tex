@@ -1,0 +1,187 @@
+
+\documentclass{beamer}
+\mode<presentation>
+{
+  \usetheme{Madrid}       % or try default, Darmstadt, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{serif}    % or try default, structurebold, ...
+  \setbeamertemplate{navigation symbols}[frame number]
+  \setbeamertemplate{footline}[frame number]
+} 
+
+
+\usepackage{subfig}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[version=3]{mhchem}
+\usepackage{graphicx}
+\usepackage{pgfpages}
+\pgfpagesuselayout{resize to}[%
+  physical paper width=8in, physical paper height=6in]
+
+% Here's where the presentation starts, with the info for the title slide
+\title{ Distributed Application to Provably Log User Activity Centralized Databases }
+
+\author{
+        Mentor: Dr. Sandeep Shukla\\
+        By: Shubham Sharma and Rahul Gupta\\
+		Department of Computer Science and Engineering \\
+		IIT Kanpur }
+\date{}
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% These three lines create an automatically generated table of contents.
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+\section{Abstract}
+\begin{frame}{Abstract}
+\begin{itemize}
+    \item Normally several users can have read/write access on conventional database systems.
+    \item If someone deletes database logs, there is no way to figure out who made changes to the database.
+    \item This means that database is open to "insider threats"
+    \item Also, normally it is not possible to trace damage if database is modified in a malicious event.
+    \item This is the problem of non-repudiation.
+\end{itemize}    
+\end{frame}
+
+\section{Problems with current system}
+\begin{frame}{Problems with current system}
+\includegraphics[keepaspectratio=true,width=1\paperwidth]{UGP1.png}
+\end{frame}
+
+\begin{frame}{Problems with current system}
+\includegraphics[keepaspectratio=true,width=1\paperwidth]{evil.png}
+\end{frame}
+\section{Brief Control Flow of our Solution}
+\begin{frame}{Brief Control Flow of our Solution}
+\includegraphics[keepaspectratio=true,width=0.9\paperwidth]{architecture.png}
+\begin{itemize}
+\item We log the state of data by signing it with the authorized person's private key who made change leading to current state. 
+\item We employ the block chain technology which allows for cryptographic signature schemes, and 'append-only' logging mechanism.
+\item Changes made on this permissioned and distributed block chain (multichain stream) are immutable and visible to everyone. 
+\end{itemize}
+\end{frame}
+
+\section{MySQL}
+\begin{frame}{MySQL}
+\begin{itemize}
+\item MySQL database is hosted on centralized server, each user is given username and password through which they can authenticate themselves and connect to the server.
+\item MySQL views and privileges are used to maintain the confidentiality of data.
+\item SELECT privilege is given to students on their respective view.
+\item SELECT, UPDATE, INSERT privileges are given to professor on their respective view.
+\end{itemize}
+\end{frame}
+
+\section{Multichain}
+\begin{frame}{Multichain}
+\begin{itemize}
+\item Multichain streams provide a natural abstraction to blockchain use cases which can be used as a key-value database in a NoSQL style in which entries are classified according to their authors.
+\item Multichain stream viz logstream is used to store the logs of MySQL which is signed by the professor making that change.
+\item The (CourseID, StudentID, ProfessorID) is used as a key and the hash of the change is used as a value.
+\item Hashing is used to maintain the confidentiality of the data which is present on the multichain stream in distributed manner.
+\end{itemize}
+\end{frame}
+\section{Django}
+\begin{frame}{Django}
+\begin{itemize}
+\item User Client is hosted on localhost using Django on Python. This enables us to get graphical functionality up and running quickly.
+\item Created views for students and professors to view and change grades respectively.
+\item Python communicates with multichain stream using JSON RPC calls provided by Savoir library.
+\item A seperate Django based server runs to grant write permission to professors on blockchain stream using their username and passwords.
+\end{itemize}
+\end{frame}
+\section{Explaining the solution}
+\begin{frame}{Explaining the solution}
+    \begin{itemize}
+        \item Non-repudiability is solved because final state of database corresponding to any change made by the professor is logged on the stream signed by his private key.
+        \item Can't Adversary just change the grade and log nothing on multichain? No, because then the final state on chain wouldn't match with database entries.
+        \item Who maintains the private and public keys? In our solution, we are simply storing the public keys against professors id on database. However, a public key infrastructure would be required to verify professor's public key. This aspect needs to be taken care of during deployment.
+    \end{itemize}
+\end{frame}
+\section{Demonstration}
+\begin{frame}{Demonstration}
+\begin{center}
+\Huge Demonstration
+\end{center}
+
+\end{frame}
+\section{Shortcomings}
+\begin{frame}{Shortcomings}
+\begin{itemize}
+\item Since only 6 grades can be assigned to a particular course, confidentiality of data can be breached by using brute force method. Salting can be used to prevent this breach in which salt is separately stored on stream encrypted with student's public key.
+\item For a large number of students, syncing changes on stream takes time. Further as time increases, log size increases which would mean more disk space is needed for storing the changes.
+\item Current multichain implementation mines blocks continuously irrespective of any new transactions, this leads to unnecessary increase in size of blockchain.
+\item If one node turns rogue it can publish garbage data on blockchain since smart contracts are not available in asset-less multichain streams. This scenario can be detected by running a central validation server.  
+\end{itemize}
+\end{frame}
+
+\section{Future Work}
+\begin{frame}{Future Work}
+\begin{itemize}
+\item More enhanced and robust Public Key Infrastructure.
+\item Auto recovery server for recovery from maliciously changed records in an attack. This would be possible because a student can always report to OARS with his salt and message digest. So, brute force over grades can be done to find out the last consistent grade with database.
+\end{itemize}
+\end{frame}
+
+\section{Other Work}
+\begin{frame}{Containerisesd Web Browser}
+\begin{itemize}
+\item Docker container image containing firefox browser is created.
+\item The image uses X11 server and Pulse-audio unix domain sockets on the host to enable audio/video support in the web browsers.
+\item The X11 socket is used to display the user interface the host, while the pulse-audio socket is used to render the audio output on the host.
+\item This dockerised browser can be set as a default browser so that any hyperlinks opened from emails, etc open within container.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Thermal Eavesdropping}
+
+\includegraphics[width=0.50\textwidth]{thermal_graph.png}%
+\includegraphics[width=0.45\textwidth]{mobile_temp.jpeg}
+\begin{itemize}
+\item We observed that it takes about 5 minutes for the temperature to rise on mobile while the temperature got down in 10 minutes. This suggests a bit rate of about 4 bits/hr using manchester encoding.
+\end{itemize}
+\end{frame}
+
+\section{Learnings}
+\begin{frame}{Key Learnings}
+\begin{itemize}
+\item Learned to make simple apps which utilise the power and security of distributed ledgers like bitcoin.
+\item Learned to maintain and host a central MySQL server for working with many clients.
+\item Learned to assign MySQL privileges to different users.
+\item Learned the concept of using public private cryptographic keys to enhance security in real world problems.
+\item Learned to use docker and run GUI applications inside docker container. 
+\item Learned techniques of eavesdropping(Thermal, Acoustic and Electromagnetic). 
+\end{itemize}
+\end{frame}
+
+\section{References}
+\begin{frame}{References}
+\begin{itemize}
+    \item https://www.multichain.com/ 
+    \item https://www.coursera.org/learn/cryptocurrency
+    \item https://www.djangoproject.com/
+    \item https://www.mysql.com/
+    \item https://www.docker.com/
+\end{itemize}    
+\end{frame}
+
+\section{Links to Project Work}
+\begin{frame}{Links to Project Work}
+\begin{itemize}
+    \item \href{https://github.com/smsharma1/Logging-Dapp}{https://github.com/smsharma1/Logging-Dapp \\ Distributed Application to Log Activity on Database} 
+    \item \href{https://github.com/smsharma1/Secure-Browser}{https://github.com/smsharma1/Secure-Browser \\Containerised Browser using Docker}
+    \item \href{https://github.com/rahulguptakota/thermal\textunderscore eavesdropping}{https://github.com/rahulguptakota/thermal\textunderscore eavesdropping \\Thermal\_Eavesdropping}
+\end{itemize}    
+\end{frame}
+\begin{frame}
+\begin{center}
+\Huge Thank You
+\end{center}
+\end{frame}
+\end{document}

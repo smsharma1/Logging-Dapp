@@ -36,7 +36,12 @@ def grant_permissions(request):
 			if rows is not None:
 				api.grant(str(key), "send")
 				api.grant(str(key), "logstream.write")
-				cursor.execute("INSERT into logdapp_user_publickey (publickey,prof_id_id,address) values ('{}', {}, '{}')".format(publickey,user,key))
+				cursor.execute("SELECT * from logdapp_user_publickey where prof_id_id={}".format(user))
+				r = cursor.fetchall()
+				if r == ():
+					cursor.execute("INSERT into logdapp_user_publickey (publickey,prof_id_id,address) values ('{}', {}, '{}')".format(publickey,user,key))
+				else:
+					cursor.execute("UPDATE logdapp_user_publickey set publickey='{}', prof_id_id={}, address='{}' where prof_id_id={}".format(publickey,user,key,user))
 				return HttpResponse("Successfully received data")
 			else:
 				return HttpResponse("Incorrect Username or Password")

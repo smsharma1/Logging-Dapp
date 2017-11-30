@@ -1,0 +1,11 @@
+git clone https://github.com/smsharma1/Secure-Browser
+./install_docker.sh
+./install.sh
+sudo docker exec -it <containerid> bash
+apt-get install git
+cd /home/firefox
+git clone https://github.com/smsharma1/Logging-Dapp
+apt-get install python3-pip
+pip3 install Django
+apt-get install python3:q-dev mysql-server libmysqlclient-dev
+
