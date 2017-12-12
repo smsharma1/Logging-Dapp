@@ -10,12 +10,25 @@
       <th>Grade</th>
     </tr>
     {% for d in data %} 
-    
-    <tr>
-    {% for dd in d %}  
-      <td> {{dd}}</td>
-    {% endfor%}
-    </tr>
+      <tr>
+      {% comment %} {% for dd in d %} {% endcomment %}
+      <td>{{d.0}}</td> 
+      <td>{{d.1}}</td> 
+      <td>{{d.2}}</td> 
+      {% if d.4 == 1 %} 
+        <td style="color: green;"> {{d.3}}</td>
+      {%endif%}
+      {% if d.4 == 0 %}
+        <td style="color: red;"> {{d.3}}</td>
+      {%endif%}
+      {% comment %} {% endfor%} {% endcomment %}
+      {% comment %} {% if valid[d]==1 %} 
+        <td style="color: green;"> {{d[-1]}}</td>
+      {%endif%}
+      {% if valid[d]==0 %}
+        <td style="color: red;"> {{d[-1]}}</td>
+      {%endif%} {% endcomment %}
+      </tr>
     {% endfor%}
   </table>
   {%if form%}

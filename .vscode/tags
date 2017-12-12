@@ -9,12 +9,13 @@
 0004_enrollment.py	../logdapp/migrations/0004_enrollment.py	1;"	kind:file	line:1
 ALLOWED_HOSTS	../loggingdapp/settings.py	/^ALLOWED_HOSTS = []$/;"	kind:variable	line:31
 ALLOWED_HOSTS	../settings.py	/^ALLOWED_HOSTS = ["172.24.0.30","localhost"]$/;"	kind:variable	line:30
-AUTH_PASSWORD_VALIDATORS	../loggingdapp/settings.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:99
+AUTH_PASSWORD_VALIDATORS	../loggingdapp/settings.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:100
 AUTH_PASSWORD_VALIDATORS	../settings.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:94
 AppConfig	../logdapp/apps.py	/^from django.apps import AppConfig$/;"	kind:namespace	line:4
 BASE_DIR	../loggingdapp/settings.py	/^BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))$/;"	kind:variable	line:16
 BASE_DIR	../settings.py	/^BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))$/;"	kind:variable	line:16
 BaseHTTPRequestHandler	../grantpermissions.py	/^from http.server import BaseHTTPRequestHandler, HTTPServer$/;"	kind:namespace	line:2
+CHAIN_NAME	../loggingdapp/settings.py	/^CHAIN_NAME = "chain1"$/;"	kind:variable	line:137
 Course	../logdapp/forms.py	/^    Course = forms.CharField(max_length=10)$/;"	kind:variable	line:9
 Course_ID	../logdapp/models.py	/^    Course_ID = models.ForeignKey(Courses)$/;"	kind:variable	line:29
 Courses	../logdapp/admin.py	/^from .models import Students, Courses, Prof, Enrollment, User, User_publickey$/;"	kind:namespace	line:8
@@ -31,17 +32,17 @@ Enrollment	../logdapp/models.py	/^class Enrollment(models.Model):$/;"	kind:class
 Grade	../logdapp/forms.py	/^    Grade = forms.CharField(max_length=2)$/;"	kind:variable	line:10
 Grade	../logdapp/models.py	/^    Grade = models.CharField(max_length=2)$/;"	kind:variable	line:32
 GradeForm	../logdapp/forms.py	/^class GradeForm(forms.Form):$/;"	kind:class	line:7
-GradeForm	../logdapp/views.py	/^from .forms import NameForm, GradeForm$/;"	kind:namespace	line:7
+GradeForm	../logdapp/views.py	/^from .forms import NameForm, GradeForm$/;"	kind:namespace	line:5
 HTTPServer	../grantpermissions.py	/^from http.server import BaseHTTPRequestHandler, HTTPServer$/;"	kind:namespace	line:2
-HttpResponse	../logdapp/views.py	/^from django.http import HttpResponse, HttpResponseRedirect$/;"	kind:namespace	line:3
-HttpResponseRedirect	../logdapp/views.py	/^from django.http import HttpResponse, HttpResponseRedirect$/;"	kind:namespace	line:3
+HttpResponse	../logdapp/views.py	/^from django.http import HttpResponse, HttpResponseRedirect$/;"	kind:namespace	line:1
+HttpResponseRedirect	../logdapp/views.py	/^from django.http import HttpResponse, HttpResponseRedirect$/;"	kind:namespace	line:1
+ID	../logdapp/models.py	/^    ID = models.AutoField(primary_key=True)$/;"	kind:variable	line:40
 ID	../logdapp/models.py	/^    ID = models.CharField(max_length=10,primary_key=True)$/;"	kind:variable	line:24
-ID	../logdapp/models.py	/^    ID = models.ForeignKey(Prof)$/;"	kind:variable	line:41
 ID	../logdapp/models.py	/^    ID = models.ForeignKey(Prof,primary_key=True)$/;"	kind:variable	line:35
 ID	../logdapp/models.py	/^    ID = models.IntegerField(primary_key=True)$/;"	kind:variable	line:28
 INSTALLED_APPS	../loggingdapp/settings.py	/^INSTALLED_APPS = [$/;"	kind:variable	line:36
 INSTALLED_APPS	../settings.py	/^INSTALLED_APPS = [$/;"	kind:variable	line:35
-LANGUAGE_CODE	../loggingdapp/settings.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:118
+LANGUAGE_CODE	../loggingdapp/settings.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:119
 LANGUAGE_CODE	../settings.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:116
 LOGIN_REDIRECT_URL	../settings.py	/^LOGIN_REDIRECT_URL = '\/logdapp\/'$/;"	kind:variable	line:128
 LogdappConfig	../logdapp/apps.py	/^class LogdappConfig(AppConfig):$/;"	kind:class	line:7
@@ -54,69 +55,83 @@ MyServer	../grantpermissions.py	/^class MyServer(BaseHTTPRequestHandler):$/;"	ki
 Name	../logdapp/models.py	/^    Name = models.CharField(max_length = 200)$/;"	kind:variable	line:16
 Name	../logdapp/models.py	/^    Name = models.CharField(max_length=20)$/;"	kind:variable	line:25
 NameForm	../logdapp/forms.py	/^class NameForm(forms.Form):$/;"	kind:class	line:4
-NameForm	../logdapp/views.py	/^from .forms import NameForm, GradeForm$/;"	kind:namespace	line:7
-PROF_ID	../loggingdapp/settings.py	/^PROF_ID = 1$/;"	kind:variable	line:135
+NameForm	../logdapp/views.py	/^from .forms import NameForm, GradeForm$/;"	kind:namespace	line:5
+PROF_ID	../loggingdapp/settings.py	/^PROF_ID = 1$/;"	kind:variable	line:136
 PROF_ID	../settings.py	/^PROF_ID = 1/;"	kind:variable	line:132
 Prof	../logdapp/admin.py	/^from .models import Students, Courses, Prof, Enrollment, User, User_publickey$/;"	kind:namespace	line:8
 Prof	../logdapp/models.py	/^class Prof(models.Model):$/;"	kind:class	line:7
 Prof_ID	../logdapp/models.py	/^    Prof_ID = models.ForeignKey(Prof)$/;"	kind:variable	line:31
 ROOT_URLCONF	../loggingdapp/settings.py	/^ROOT_URLCONF = 'loggingdapp.urls'$/;"	kind:variable	line:56
 ROOT_URLCONF	../settings.py	/^ROOT_URLCONF = 'loggingdapp.urls'$/;"	kind:variable	line:55
+RSA	../generatekeys.py	/^from Crypto.PublicKey import RSA$/;"	kind:namespace	line:1
+RSA	../getpermissions.py	/^from Crypto.PublicKey import RSA$/;"	kind:namespace	line:9
+RSA	../logdapp/views.py	/^from Crypto.PublicKey import RSA$/;"	kind:namespace	line:11
+RSA	../temp.py	/^from Crypto.PublicKey import RSA$/;"	kind:namespace	line:1
 RollNumber	../logdapp/forms.py	/^    RollNumber = forms.IntegerField()$/;"	kind:variable	line:8
 Roll_Number	../logdapp/models.py	/^    Roll_Number = models.AutoField(primary_key=True)$/;"	kind:variable	line:17
+SERVER_ADDRESS	../loggingdapp/settings.py	/^SERVER_ADDRESS = "192.168.0.107:8000"$/;"	kind:variable	line:138
+SHA256	../logdapp/views.py	/^from Crypto.Hash import SHA256$/;"	kind:namespace	line:14
+SHA256	../temp.py	/^from Crypto.Hash import SHA256$/;"	kind:namespace	line:3
 STATICFILES_DIRS	../loggingdapp/settings.py	/^STATICFILES_DIRS = [$/;"	kind:variable	line:18
 STATICFILES_DIRS	../settings.py	/^STATICFILES_DIRS = [$/;"	kind:variable	line:18
-STATIC_URL	../loggingdapp/settings.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:132
+STATIC_URL	../loggingdapp/settings.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:133
 STATIC_URL	../loggingdapp/settings.py	/^STATIC_URL = 'static\/'$/;"	kind:variable	line:33
 STATIC_URL	../settings.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:126
+STUDENT_ID	../loggingdapp/settings.py	/^STUDENT_ID = 1$/;"	kind:variable	line:135
 STUDENT_ID	../settings.py	/^STUDENT_ID = 1$/;"	kind:variable	line:130
 Savoir	../getpermissions.py	/^from Savoir import Savoir$/;"	kind:namespace	line:6
-Savoir	../logdapp/views.py	/^from Savoir import Savoir$/;"	kind:namespace	line:12
+Savoir	../logdapp/views.py	/^from Savoir import Savoir$/;"	kind:namespace	line:10
 Semester	../logdapp/models.py	/^    Semester = models.IntegerField()$/;"	kind:variable	line:18
 Student_ID	../logdapp/models.py	/^    Student_ID = models.ForeignKey(Students)$/;"	kind:variable	line:30
 Students	../logdapp/admin.py	/^from .models import Students, Courses, Prof, Enrollment, User, User_publickey$/;"	kind:namespace	line:8
 Students	../logdapp/models.py	/^class Students(models.Model):$/;"	kind:class	line:15
 TEMPLATES	../loggingdapp/settings.py	/^TEMPLATES = [$/;"	kind:variable	line:58
 TEMPLATES	../settings.py	/^TEMPLATES = [$/;"	kind:variable	line:57
-TIME_ZONE	../loggingdapp/settings.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:120
+TIME_ZONE	../loggingdapp/settings.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:121
 TIME_ZONE	../settings.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:118
 TestCase	../logdapp/tests.py	/^from django.test import TestCase$/;"	kind:namespace	line:4
-USE_I18N	../loggingdapp/settings.py	/^USE_I18N = True$/;"	kind:variable	line:122
+USE_I18N	../loggingdapp/settings.py	/^USE_I18N = True$/;"	kind:variable	line:123
 USE_I18N	../settings.py	/^USE_I18N = True$/;"	kind:variable	line:120
-USE_L10N	../loggingdapp/settings.py	/^USE_L10N = True$/;"	kind:variable	line:124
+USE_L10N	../loggingdapp/settings.py	/^USE_L10N = True$/;"	kind:variable	line:125
 USE_L10N	../settings.py	/^USE_L10N = True$/;"	kind:variable	line:122
-USE_TZ	../loggingdapp/settings.py	/^USE_TZ = True$/;"	kind:variable	line:126
+USE_TZ	../loggingdapp/settings.py	/^USE_TZ = True$/;"	kind:variable	line:127
 USE_TZ	../settings.py	/^USE_TZ = True$/;"	kind:variable	line:124
 User	../logdapp/admin.py	/^from .models import Students, Courses, Prof, Enrollment, User, User_publickey$/;"	kind:namespace	line:8
 User	../logdapp/admin.py	/^from django.contrib.auth.models import User$/;"	kind:namespace	line:5
 User	../logdapp/models.py	/^class User(models.Model):$/;"	kind:class	line:34
 User_publickey	../logdapp/admin.py	/^from .models import Students, Courses, Prof, Enrollment, User, User_publickey$/;"	kind:namespace	line:8
 User_publickey	../logdapp/models.py	/^class User_publickey(models.Model):$/;"	kind:class	line:39
-User_publickey	../logdapp/views.py	/^from .models import User_publickey$/;"	kind:namespace	line:10
+User_publickey	../logdapp/views.py	/^from .models import User_publickey$/;"	kind:namespace	line:8
 WSGI_APPLICATION	../loggingdapp/settings.py	/^WSGI_APPLICATION = 'loggingdapp.wsgi.application'$/;"	kind:variable	line:74
 WSGI_APPLICATION	../settings.py	/^WSGI_APPLICATION = 'loggingdapp.wsgi.application'$/;"	kind:variable	line:73
 __init__.py	../logdapp/__init__.py	1;"	kind:file	line:1
 __init__.py	../loggingdapp/__init__.py	1;"	kind:file	line:1
 activate_this.py	../bin/activate_this.py	1;"	kind:file	line:1
+address	../logdapp/models.py	/^    address = models.CharField(max_length=200,null=True)$/;"	kind:variable	line:43
 admin	../logdapp/admin.py	/^from django.contrib import admin$/;"	kind:namespace	line:4
 admin	../loggingdapp/urls.py	/^from django.contrib import admin$/;"	kind:namespace	line:17
 admin.py	../logdapp/admin.py	1;"	kind:file	line:1
 application	../loggingdapp/wsgi.py	/^application = get_wsgi_application()$/;"	kind:variable	line:16
 apps.py	../logdapp/apps.py	1;"	kind:file	line:1
-authenticate	../logdapp/views.py	/^from django.contrib.auth import authenticate$/;"	kind:namespace	line:6
+authenticate	../logdapp/views.py	/^from django.contrib.auth import authenticate$/;"	kind:namespace	line:4
 base	../bin/activate_this.py	/^base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))$/;"	kind:variable	line:18
-binascii	../logdapp/views.py	/^import binascii$/;"	kind:namespace	line:17
+base64	../logdapp/views.py	/^import json, configparser, os, binascii, base64, codecs, requests$/;"	kind:namespace	line:16
+binascii	../logdapp/views.py	/^import json, configparser, os, binascii, base64, codecs, requests$/;"	kind:namespace	line:16
+blockchain_breach	../logdapp/views.py	/^def blockchain_breach(request):$/;"	kind:function	line:109
 chain	../getpermissions.py	/^from itertools import chain$/;"	kind:namespace	line:8
-chain	../logdapp/views.py	/^from itertools import chain$/;"	kind:namespace	line:14
+chain	../logdapp/utils.py	/^from itertools import chain$/;"	kind:namespace	line:1
+chain	../logdapp/views.py	/^from itertools import chain$/;"	kind:namespace	line:12
 chardetect	../bin/chardetect	1;"	kind:file	line:1
 cli	../bin/bin/conda	/^    import conda.cli$/;"	kind:namespace	line:4
+codecs	../logdapp/views.py	/^import json, configparser, os, binascii, base64, codecs, requests$/;"	kind:namespace	line:16
 conda	../bin/bin/conda	/^    import conda.cli$/;"	kind:namespace	line:4
 conda	../bin/bin/conda	1;"	kind:file	line:1
 configparser	../getpermissions.py	/^import getpass, configparser$/;"	kind:namespace	line:7
-configparser	../logdapp/views.py	/^import configparser$/;"	kind:namespace	line:15
-connection	../logdapp/views.py	/^from django.db import connection$/;"	kind:namespace	line:11
+configparser	../logdapp/utils.py	/^import configparser, os$/;"	kind:namespace	line:2
+configparser	../logdapp/views.py	/^import json, configparser, os, binascii, base64, codecs, requests$/;"	kind:namespace	line:16
+connection	../logdapp/views.py	/^from django.db import connection$/;"	kind:namespace	line:9
 course	../logdapp/models.py	/^    course = models.CharField(max_length=20)$/;"	kind:variable	line:13
-csrf_exempt	../logdapp/views.py	/^from django.views.decorators.csrf import csrf_exempt$/;"	kind:namespace	line:4
+csrf_exempt	../logdapp/views.py	/^from django.views.decorators.csrf import csrf_exempt$/;"	kind:namespace	line:2
 db	../logdapp/migrations/0004_enrollment.py	/^import django.db.models.deletion$/;"	kind:namespace	line:6
 deletion	../logdapp/migrations/0004_enrollment.py	/^import django.db.models.deletion$/;"	kind:namespace	line:6
 department	../logdapp/models.py	/^    department = models.CharField(max_length=200)$/;"	kind:variable	line:10
@@ -132,30 +147,42 @@ do_POST	../grantpermissions.py	/^	def do_POST(self):$/;"	kind:member	line:17
 easy_install	../bin/easy_install	1;"	kind:file	line:1
 easy_install-2.7	../bin/easy_install-2.7	1;"	kind:file	line:1
 email	../logdapp/models.py	/^    email = models.EmailField()$/;"	kind:variable	line:12
+encrypt	../temp.py	/^encrypt = pkcs1_15.new(key).sign(h)$/;"	kind:variable	line:13
+encrypted_key	../generatekeys.py	/^encrypted_key = key.exportKey(passphrase=secret_code, pkcs=8,$/;"	kind:variable	line:7
+encrypted_key	../temp.py	/^encrypted_key = key.exportKey(passphrase=secret_code, pkcs=8,$/;"	kind:variable	line:9
 execute_from_command_line	../bin/django-admin	/^from django.core.management import execute_from_command_line$/;"	kind:namespace	line:7
 execute_from_command_line	../manage.py	/^        from django.core.management import execute_from_command_line$/;"	kind:namespace	line:8
 exit_with_usage	../bin/python-config	/^def exit_with_usage(code=1):$/;"	kind:function	line:17
 field	../logdapp/migrations/0002_auto_20171012_1222.py	/^            field=models.CharField(max_length=20),$/;"	kind:variable	line:18
 fields	../logdapp/migrations/0004_enrollment.py	/^            fields=[$/;"	kind:variable	line:18
+file_out	../generatekeys.py	/^file_out = open("rsa_key.bin", "wb")$/;"	kind:variable	line:10
 forms	../logdapp/forms.py	/^from django import forms$/;"	kind:namespace	line:1
 forms.py	../logdapp/forms.py	1;"	kind:file	line:1
-get_grades	../logdapp/views.py	/^def get_grades(request):$/;"	kind:function	line:88
-get_name	../logdapp/views.py	/^def get_name(request):$/;"	kind:function	line:22
+generatekeys.py	../generatekeys.py	1;"	kind:file	line:1
+get_grades	../logdapp/views.py	/^def get_grades(request):$/;"	kind:function	line:48
+get_multichain_info	../logdapp/utils.py	/^def get_multichain_info():$/;"	kind:function	line:5
+get_multichain_info	../logdapp/views.py	/^from logdapp.utils import get_multichain_info$/;"	kind:namespace	line:13
 get_wsgi_application	../loggingdapp/wsgi.py	/^from django.core.wsgi import get_wsgi_application$/;"	kind:namespace	line:12
 getopt	../bin/python-config	/^import getopt$/;"	kind:namespace	line:4
+getpass	../generatekeys.py	/^import getpass$/;"	kind:namespace	line:3
 getpass	../getpermissions.py	/^import getpass, configparser$/;"	kind:namespace	line:7
+getpass	../temp.py	/^import getpass$/;"	kind:namespace	line:5
 getpermissions.py	../getpermissions.py	1;"	kind:file	line:1
 getvar	../bin/python-config	/^getvar = sysconfig.get_config_var$/;"	kind:variable	line:31
-grant_permissions	../logdapp/views.py	/^def grant_permissions(request):$/;"	kind:function	line:41
+grant_permissions	../logdapp/views.py	/^def grant_permissions(request):$/;"	kind:function	line:22
 grantpermissions.py	../grantpermissions.py	1;"	kind:file	line:1
+h	../temp.py	/^h = SHA256.new(message)$/;"	kind:variable	line:12
+h	../temp.py	/^h = SHA256.new(message)$/;"	kind:variable	line:15
 hostName	../grantpermissions.py	/^hostName = ""$/;"	kind:variable	line:6
 hostPort	../grantpermissions.py	/^hostPort = 8080$/;"	kind:variable	line:7
 include	../loggingdapp/urls.py	/^from django.conf.urls import include, url$/;"	kind:namespace	line:16
-index	../logdapp/views.py	/^def index(request):$/;"	kind:function	line:19
+index	../logdapp/views.py	/^def index(request):$/;"	kind:function	line:18
 json	../getpermissions.py	/^import json$/;"	kind:namespace	line:5
 json	../grantpermissions.py	/^import json$/;"	kind:namespace	line:3
-json	../logdapp/views.py	/^import json$/;"	kind:namespace	line:13
-login_required	../logdapp/views.py	/^from django.contrib.auth.decorators import login_required$/;"	kind:namespace	line:5
+json	../logdapp/views.py	/^import json, configparser, os, binascii, base64, codecs, requests$/;"	kind:namespace	line:16
+key	../generatekeys.py	/^key = RSA.generate(2048,os.urandom)$/;"	kind:variable	line:6
+key	../temp.py	/^key = RSA.generate(2048,os.urandom)$/;"	kind:variable	line:8
+login_required	../logdapp/views.py	/^from django.contrib.auth.decorators import login_required$/;"	kind:namespace	line:3
 main	../bin/chardetect	/^from chardet.cli.chardetect import main$/;"	kind:namespace	line:7
 main	../bin/easy_install	/^from setuptools.command.easy_install import main$/;"	kind:namespace	line:7
 main	../bin/easy_install-2.7	/^from setuptools.command.easy_install import main$/;"	kind:namespace	line:7
@@ -163,9 +190,10 @@ main	../bin/pip	/^from pip import main$/;"	kind:namespace	line:7
 main	../bin/pip2	/^from pip import main$/;"	kind:namespace	line:7
 main	../bin/pip2.7	/^from pip import main$/;"	kind:namespace	line:7
 main	../bin/wheel	/^from wheel.tool import main$/;"	kind:namespace	line:7
-main	../getpermissions.py	/^def main(argv):$/;"	kind:function	line:23
+main	../getpermissions.py	/^def main(argv):$/;"	kind:function	line:25
 manage.py	../manage.py	1;"	kind:file	line:1
 management	../bin/django-admin.py	/^from django.core import management$/;"	kind:namespace	line:2
+message	../temp.py	/^message = "HEY My name is shubham".encode()$/;"	kind:variable	line:11
 migrations	../logdapp/migrations/0002_auto_20171012_1222.py	/^from django.db import migrations, models$/;"	kind:namespace	line:5
 migrations	../logdapp/migrations/0003_auto_20171012_1242.py	/^from django.db import migrations$/;"	kind:namespace	line:5
 migrations	../logdapp/migrations/0004_enrollment.py	/^from django.db import migrations, models$/;"	kind:namespace	line:5
@@ -189,19 +217,27 @@ operations	../logdapp/migrations/0003_auto_20171012_1242.py	/^    operations = [
 operations	../logdapp/migrations/0004_enrollment.py	/^    operations = [$/;"	kind:variable	line:15
 opt_flags	../bin/python-config	/^opt_flags = [flag for (flag, val) in opts]$/;"	kind:variable	line:33
 os	../bin/activate_this.py	/^import os$/;"	kind:namespace	line:14
+os	../generatekeys.py	/^import os$/;"	kind:namespace	line:2
 os	../getpermissions.py	/^import sys, os$/;"	kind:namespace	line:4
-os	../logdapp/views.py	/^import os$/;"	kind:namespace	line:16
+os	../logdapp/utils.py	/^import configparser, os$/;"	kind:namespace	line:2
+os	../logdapp/views.py	/^import json, configparser, os, binascii, base64, codecs, requests$/;"	kind:namespace	line:16
 os	../loggingdapp/settings.py	/^import os$/;"	kind:namespace	line:13
 os	../loggingdapp/wsgi.py	/^import os$/;"	kind:namespace	line:10
 os	../manage.py	/^import os$/;"	kind:namespace	line:2
 os	../settings.py	/^import os$/;"	kind:namespace	line:13
+os	../temp.py	/^import os$/;"	kind:namespace	line:4
 password	../logdapp/models.py	/^    password = models.CharField(max_length=200)$/;"	kind:variable	line:37
 pip	../bin/pip	1;"	kind:file	line:1
 pip2	../bin/pip2	1;"	kind:file	line:1
 pip2.7	../bin/pip2.7	1;"	kind:file	line:1
+pkcs1_15	../logdapp/views.py	/^from Crypto.Signature import pkcs1_15$/;"	kind:namespace	line:15
+pkcs1_15	../temp.py	/^from Crypto.Signature import pkcs1_15$/;"	kind:namespace	line:2
 prev_sys_path	../bin/activate_this.py	/^prev_sys_path = list(sys.path)$/;"	kind:variable	line:23
+prof_id	../logdapp/models.py	/^    prof_id = models.ForeignKey(Prof,null=True)$/;"	kind:variable	line:41
 profid	../logdapp/models.py	/^    profid = models.AutoField(primary_key=True)$/;"	kind:variable	line:8
-publickey	../logdapp/models.py	/^    publickey = models.CharField(max_length=200,default='0',primary_key=True)$/;"	kind:variable	line:40
+protection	../generatekeys.py	/^                              protection="scryptAndAES128-CBC")$/;"	kind:variable	line:8
+protection	../temp.py	/^                              protection="scryptAndAES128-CBC")$/;"	kind:variable	line:10
+publickey	../logdapp/models.py	/^    publickey = models.CharField(max_length=1000,null=True)$/;"	kind:variable	line:42
 python-config	../bin/python-config	1;"	kind:file	line:1
 pyver	../bin/python-config	/^pyver = sysconfig.get_config_var('VERSION')$/;"	kind:variable	line:30
 re	../bin/chardetect	/^import re$/;"	kind:namespace	line:4
@@ -212,10 +248,14 @@ re	../bin/pip	/^import re$/;"	kind:namespace	line:4
 re	../bin/pip2	/^import re$/;"	kind:namespace	line:4
 re	../bin/pip2.7	/^import re$/;"	kind:namespace	line:4
 re	../bin/wheel	/^import re$/;"	kind:namespace	line:4
-render	../logdapp/views.py	/^from django.shortcuts import render$/;"	kind:namespace	line:8
+render	../logdapp/views.py	/^from django.shortcuts import render$/;"	kind:namespace	line:6
 requests	../getpermissions.py	/^import requests$/;"	kind:namespace	line:2
-send_data	../getpermissions.py	/^def send_data(user, passwd, addr):$/;"	kind:function	line:11
-settings	../logdapp/views.py	/^from django.conf import settings$/;"	kind:namespace	line:9
+requests	../logdapp/views.py	/^import json, configparser, os, binascii, base64, codecs, requests$/;"	kind:namespace	line:16
+secret_code	../generatekeys.py	/^secret_code = "temp"$/;"	kind:variable	line:5
+secret_code	../temp.py	/^secret_code = getpass.getpass("Please enter your cc password to protect the key\\n")$/;"	kind:variable	line:6
+send_data	../getpermissions.py	/^def send_data(user, passwd, addr, publickey):$/;"	kind:function	line:11
+settings	../logdapp/utils.py	/^from django.conf import settings$/;"	kind:namespace	line:3
+settings	../logdapp/views.py	/^from django.conf import settings$/;"	kind:namespace	line:7
 settings.py	../loggingdapp/settings.py	1;"	kind:file	line:1
 settings.py	../settings.py	1;"	kind:file	line:1
 site	../bin/activate_this.py	/^import site$/;"	kind:namespace	line:24
@@ -237,6 +277,7 @@ sys	../bin/wheel	/^import sys$/;"	kind:namespace	line:5
 sys	../getpermissions.py	/^import sys, os$/;"	kind:namespace	line:4
 sys	../manage.py	/^import sys$/;"	kind:namespace	line:3
 sysconfig	../bin/python-config	/^import sysconfig$/;"	kind:namespace	line:5
+temp.py	../temp.py	1;"	kind:file	line:1
 tests.py	../logdapp/tests.py	1;"	kind:file	line:1
 time	../grantpermissions.py	/^import time$/;"	kind:namespace	line:4
 unicode_literals	../logdapp/admin.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:2
@@ -246,13 +287,14 @@ unicode_literals	../logdapp/migrations/0003_auto_20171012_1242.py	/^from __futur
 unicode_literals	../logdapp/migrations/0004_enrollment.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
 unicode_literals	../logdapp/models.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:2
 unicode_literals	../logdapp/tests.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:2
-update_grades	../logdapp/views.py	/^def update_grades(request):$/;"	kind:function	line:97
+update_grades	../logdapp/views.py	/^def update_grades(request):$/;"	kind:function	line:116
 url	../logdapp/urls.py	/^from django.conf.urls import url$/;"	kind:namespace	line:1
 url	../loggingdapp/urls.py	/^from django.conf.urls import include, url$/;"	kind:namespace	line:16
 urlpatterns	../logdapp/urls.py	/^urlpatterns = [$/;"	kind:variable	line:4
 urlpatterns	../loggingdapp/urls.py	/^urlpatterns = [$/;"	kind:variable	line:19
 urls.py	../logdapp/urls.py	1;"	kind:file	line:1
 urls.py	../loggingdapp/urls.py	1;"	kind:file	line:1
+utils.py	../logdapp/utils.py	1;"	kind:file	line:1
 valid_opts	../bin/python-config	/^valid_opts = ['prefix', 'exec-prefix', 'includes', 'libs', 'cflags',$/;"	kind:variable	line:7
 views	../logdapp/urls.py	/^from . import views$/;"	kind:namespace	line:2
 views.py	../logdapp/views.py	1;"	kind:file	line:1

@@ -17,7 +17,7 @@ def send_data(user, passwd, addr, publickey):
 	}
 	payload = json.dumps(querydata)
 	# pass an https url here for security, this one is dummy
-	url = "http://192.168.0.107:8000/logdapp/grantpermissions/"
+	url = "http://172.27.30.199:8000/logdapp/grantpermissions/"
 	# url = "http://172.24.0.30:8000/logdapp/grantpermissions/"
 	response = requests.request("POST", url, data=payload, verify=False)
 	return response
@@ -27,7 +27,7 @@ def main(argv):
 	passwd = getpass.getpass("Password for " + user + ":")
 	encryption_pass = "temp"
 
-	encoded_key = open("rsa_key.bin", "rb").read()
+	encoded_key = open("rsa_key"+"_prof"+user+".bin", "rb").read()
 	key = RSA.import_key(encoded_key, passphrase=str(encryption_pass))
 
 	clientchain = "chain1"
