@@ -79,7 +79,6 @@ def get_grades(request):
 			for i in range(len(key_alldata)):
 				recent_data = key_alldata[-1-i]
 				print(recent_data['data'])
-				# flag[one_row] = 0
 				print(publickey)			
 				if( address == recent_data['publishers'][0]):
 					h = binascii.unhexlify(codecs.encode(recent_data['data']))
@@ -105,10 +104,6 @@ def get_grades(request):
 							print("Inform OARS that something went wrong with blockchain breach view and mail following data to OARS guys: ", post_data)
 					except:
 						print("Be a nice boy and mail following data to OARS guys: ", post_data)
-
-		# for value in flag.values():
-		# 	# return HttpResponse("Validation failed for {}. Talk to your instructor and OARS admin immediately.".format(one_row))
-		# 	return render(request,"logdapp/viewgrades.html",{'data':rows})
 		sent_data = []
 		for row in rows:
 			valid = list(row)
@@ -174,7 +169,6 @@ def update_grades(request):
 				for i in range(len(key_alldata)):
 					recent_data = key_alldata[-1-i]
 					print(recent_data['data'])
-					# flag[one_row] = 0
 					print(publickey)			
 					if( address == recent_data['publishers'][0]):
 						h = binascii.unhexlify(codecs.encode(recent_data['data']))
@@ -200,10 +194,6 @@ def update_grades(request):
 								print("Inform OARS that something went wrong with blockchain breach view and mail following data to OARS guys: ", post_data)
 						except:
 							print("Be a nice boy and mail following data to OARS guys: ", post_data)
-
-			# for value in flag.values():
-			# 	# return HttpResponse("Validation failed for {}. Talk to your instructor and OARS admin immediately.".format(one_row))
-			# 	return render(request,"logdapp/viewgrades.html",{'data':rows})
 			sent_data = []
 			print(flag)
 			for row in rows:
@@ -240,7 +230,6 @@ def update_grades(request):
 				for i in range(len(key_alldata)):
 					recent_data = key_alldata[-1-i]
 					print(recent_data['data'])
-					# flag[one_row] = 0
 					print(publickey)			
 					if( address == recent_data['publishers'][0]):
 						h = binascii.unhexlify(codecs.encode(recent_data['data']))
@@ -266,10 +255,6 @@ def update_grades(request):
 								print("Inform OARS that something went wrong with blockchain breach view and mail following data to OARS guys: ", post_data)
 						except:
 							print("Be a nice boy and mail following data to OARS guys: ", post_data)
-
-			# for value in flag.values():
-			# 	# return HttpResponse("Validation failed for {}. Talk to your instructor and OARS admin immediately.".format(one_row))
-			# 	return render(request,"logdapp/viewgrades.html",{'data':rows})
 			sent_data = []
 			print(flag)
 			for row in rows:
