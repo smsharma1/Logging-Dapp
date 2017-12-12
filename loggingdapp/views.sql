@@ -44,7 +44,7 @@ GRANT SELECT ON `loggingdapp`.`logdapp_student_4_view` TO 'student_4'@'%';
 GRANT SELECT, INSERT, CREATE ON `loggingdapp`.`django_migrations` TO 'student_4'@'%';
 GRANT SELECT ON `loggingdapp`.`logdapp_user_publickey` TO 'student_4'@'%';
 GRANT SELECT ON `loggingdapp`.`logdapp_user_publickey` TO 'prof_1'@'%';
-GRANT SELECT, UPDATE ON `loggingdapp`.`logdapp_prof_1_view` TO 'prof_1'@'%';
+GRANT SELECT, INSERT, UPDATE ON `loggingdapp`.`logdapp_prof_1_view` TO 'prof_1'@'%';
 GRANT SELECT, INSERT, CREATE ON `loggingdapp`.`django_migrations` TO 'prof_1'@'%';
 GRANT SELECT, INSERT, CREATE ON `loggingdapp`.`django_migrations` TO 'prof_2'@'%';
 GRANT SELECT, INSERT, UPDATE ON `loggingdapp`.`logdapp_prof_2_view` TO 'prof_2'@'%';
