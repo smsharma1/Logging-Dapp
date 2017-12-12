@@ -25,6 +25,7 @@ def grant_permissions(request):
 	api = Savoir(chain_info["username"], chain_info["password"], "localhost", chain_info["port"], serverchain)
 	if request.method == 'POST':
 		data = json.loads((request.body).decode('utf-8'))
+		print(data)
 		key = data["key"]
 		user = data["user"]
 		password = data["password"]
