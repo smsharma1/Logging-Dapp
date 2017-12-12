@@ -17,7 +17,7 @@ def send_data(user, passwd, addr, publickey):
 	}
 	payload = json.dumps(querydata)
 	# pass an https url here for security, this one is dummy
-	# url = "http://172.27.30.199:8000/logdapp/grantpermissions/"
+	url = "http://192.168.0.103:8000/logdapp/grantpermissions/"
 	# url = "http://172.24.0.30:8000/logdapp/grantpermissions/"
 	url = "http://localhost:8000/logdapp/grantpermissions/"
 	response = requests.request("POST", url, data=payload, verify=False)
@@ -46,10 +46,14 @@ def main(argv):
 
 	clientuser = credparser["top"]["rpcuser"]
 	clientpass = credparser["top"]["rpcpassword"]
+	print(clientuser, clientpass, "localhost", clientport, clientchain)
 	api = Savoir(clientuser, clientpass, "localhost", clientport, clientchain)
 
 	data = api.getaddresses()
-	print(data)
+	# print(data)
+	# data = api.liststreams()
+	# print(data)
+
 	response = send_data(user, passwd, data[0], key.publickey().exportKey())
 	print(response)
 	if(response.status_code == 200):		
